@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/java3d/j3dcore.jar"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/java3d/j3dutils.jar"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/java3d/jogamp-fat.jar"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/java3d/vecmath.jar"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/Bullet/gdx-bullet-natives.jar"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/Bullet/gdx-bullet.jar"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/Bullet/gdx-natives.jar"/>
+	<classpathentry kind="lib" path="/Users/Andrew/Desktop/Libs/Bullet/gdx.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
