@@ -10,7 +10,7 @@ public class SunEnvironment {
 	public SunEnvironment() {
 		// Create a light that shines for 100m from the origin
 		{
-			Color3f light1Color = new Color3f(1.0f, 1.0f, 1.0f);
+			Color3f light1Color = new Color3f(1.0f, 1.0f, 0.95f);
 			BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1024.0);
 			Vector3f light1Direction = new Vector3f(4.0f, -7.0f, -12.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
@@ -20,9 +20,29 @@ public class SunEnvironment {
 		
 		// Create another light
 		{
-			Color3f light1Color = new Color3f(0.8f, 0.8f, 1.0f);
+			Color3f light1Color = new Color3f(0.85f, 0.85f, 1.0f);
 			BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1024.0);
-			Vector3f light1Direction = new Vector3f(-2.0f, -9.0f, -4.0f);
+			Vector3f light1Direction = new Vector3f(-2.0f, -9.0f, 4.0f);
+			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
+			light1.setInfluencingBounds(bounds);
+			GolfGame.universe.getMainGroup().addChild(light1);
+		}
+		
+		// Create another light
+		{
+			Color3f light1Color = new Color3f(0.5f, 0.5f, 0.5f);
+			BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1024.0);
+			Vector3f light1Direction = new Vector3f(1.0f, 9.0f, -7.0f);
+			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
+			light1.setInfluencingBounds(bounds);
+			GolfGame.universe.getMainGroup().addChild(light1);
+		}
+		
+		// Create another light
+		{
+			Color3f light1Color = new Color3f(0.2f, 0.2f, 0.25f);
+			BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1024.0);
+			Vector3f light1Direction = new Vector3f(-8.0f, -3.0f, 0.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
 			GolfGame.universe.getMainGroup().addChild(light1);

@@ -14,7 +14,7 @@ public class Golfball extends PhysicsObject {
 		
 		setPosition(new Point3f(0, 8, 0));
 		
-		this.setVelocity(new Vector3f(2,1,2));
+		this.setVelocity(new Vector3f(2,1,1.5f));
 	}
 
 }
