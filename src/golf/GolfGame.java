@@ -2,6 +2,8 @@ package golf;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.physics.bullet.Bullet;
+
 import engine.Game;
 import engine.GameObject;
 import engine.GameUniverse;
@@ -17,6 +19,7 @@ public class GolfGame extends Game {
 	public void initialize(GameUniverse universe) {
 		GolfGame.universe = universe;
 		new SunEnvironment();
+		Bullet.init();
 		
 		camera = new Camera();
 		
