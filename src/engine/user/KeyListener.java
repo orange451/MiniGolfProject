@@ -9,6 +9,7 @@ public class KeyListener implements java.awt.event.KeyListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		String key = getKeyFromKeyCode(arg0);
+		System.out.println("Pressed key: " + key);
 		Game.keyboard.pressKey(key);
 	}
 
@@ -23,7 +24,7 @@ public class KeyListener implements java.awt.event.KeyListener {
 		int keyCode = e.getKeyCode();
 		String key = KeyEvent.getKeyText(keyCode);
 		boolean holdShift = Game.keyboard.isKeyHeldDown("Shift");
-		//System.out.println(keyCode);
+		
 		if (!holdShift) {
 			if (keyCode == 47) {
 				key = "/";

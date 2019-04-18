@@ -53,7 +53,6 @@ public class GolfGame extends Game {
 		}
 		
 		// Update the camera
-		direction += deltaTime*0.3;
 		float dist = 12;
 		Point3f to = ball.getPosition();
 		to.add(new Point3f(0,0.7f,0));

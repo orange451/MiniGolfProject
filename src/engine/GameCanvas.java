@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.BorderLayout;
+import java.awt.Panel;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.media.j3d.BranchGroup;
@@ -13,10 +14,8 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 import engine.user.KeyListener;
 import engine.user.MouseListener;
 
-public class GameCanvas extends JPanel implements GameUniverse {
+public class GameCanvas extends Panel implements GameUniverse {
 	private static final long serialVersionUID = 1L;
-	
-	public static final int DESIRED_RATE = 60;
 	
 	protected SimpleUniverse universe;
 	protected BranchGroup mainGroup;
@@ -39,11 +38,15 @@ public class GameCanvas extends JPanel implements GameUniverse {
 				start.set((long) time);
 				
 				// Step the game before we render
-				Game.keyboard.tick();
-				Game.mouse.tick();
-				callback.step((float) delta);
-				Game.keyboard.endTick();
-				Game.mouse.endTick();
+				try {
+					Game.keyboard.tick();
+					Game.mouse.tick();
+					callback.step((float) delta);
+					Game.keyboard.endTick();
+					Game.mouse.endTick();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 
 				// Continue normal rendering
 				super.preRender();
@@ -51,12 +54,8 @@ public class GameCanvas extends JPanel implements GameUniverse {
 		};
 		this.add(canvas, BorderLayout.CENTER);
 		
-		canvas.addKeyListener(new KeyListener());
-		canvas.addMouseListener(new MouseListener());
-		
 		// Universe
 		universe = new SimpleUniverse(canvas);
-		universe.getViewer().getView().setMinimumFrameCycleTime(1000/DESIRED_RATE);
 
 		// Create a structure to contain objects
 		mainGroup = new BranchGroup();
@@ -65,6 +64,9 @@ public class GameCanvas extends JPanel implements GameUniverse {
 		mainGroup.setCapability(Group.ALLOW_CHILDREN_WRITE);
 		
 		callback.initialize(this);
+		
+		canvas.addKeyListener(new KeyListener());
+		canvas.addMouseListener(new MouseListener());
 	}
 
 	@Override

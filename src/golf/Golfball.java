@@ -25,6 +25,11 @@ public class Golfball extends PhysicsObject {
 		if ( Game.keyboard.isKeyPressed("Space") ) {
 			this.setVelocity(new Vector3f(0,20,0));
 		}
+
+		if ( Game.keyboard.isKeyHeldDown("Q") )
+			GolfGame.direction -= deltaTime;
+		if ( Game.keyboard.isKeyHeldDown("E") )
+			GolfGame.direction += deltaTime;
 		
 		// Increase damping the SLOWER we are (so it feels more linear when stopping)
 		float speed = (float) Math.max(0.1, this.getVelocity().lengthSquared());
