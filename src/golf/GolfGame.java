@@ -7,10 +7,10 @@ import javax.vecmath.Point3f;
 import engine.Game;
 import engine.GameObject;
 import engine.GameUniverse;
+import engine.physics.PhysicsObject;
 import engine.physics.PhysicsWorld;
 
 public class GolfGame extends Game {
-	public static GameUniverse universe;
 	public static PhysicsWorld physicsWorld;
 	
 	public static Camera camera;
@@ -21,7 +21,7 @@ public class GolfGame extends Game {
 	
 	@Override
 	public void initialize(GameUniverse universe) {
-		GolfGame.universe = universe;
+		Game.universe = universe;
 		new OutsideAmbientLight();
 		
 		// Physics
@@ -34,6 +34,8 @@ public class GolfGame extends Game {
 		objects = new ArrayList<GameObject>();
 		objects.add(ball = new Golfball());
 		objects.add(new Floor());
+		
+		objects.add(new PhysicsObject("Resources/Models/testHole.obj", true) {});
 	}
 	
 	@Override

@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
+import engine.user.KeyListener;
+import engine.user.MouseListener;
+
 public class GameCanvas extends JPanel implements GameUniverse {
 	private static final long serialVersionUID = 1L;
 	
@@ -34,12 +37,22 @@ public class GameCanvas extends JPanel implements GameUniverse {
 				long time = System.nanoTime();
 				double delta = (time-start.longValue())*1.0e-9;
 				start.set((long) time);
-
+				
+				// Step the game before we render
+				Game.keyboard.tick();
+				Game.mouse.tick();
 				callback.step((float) delta);
+				Game.keyboard.endTick();
+				Game.mouse.endTick();
+
+				// Continue normal rendering
 				super.preRender();
 			}
 		};
 		this.add(canvas, BorderLayout.CENTER);
+		
+		canvas.addKeyListener(new KeyListener());
+		canvas.addMouseListener(new MouseListener());
 		
 		// Universe
 		universe = new SimpleUniverse(canvas);

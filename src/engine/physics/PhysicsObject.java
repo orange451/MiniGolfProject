@@ -71,6 +71,7 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 		bodyInfo.setFriction(0.7f);
 		
 		body = new btRigidBody(bodyInfo);
+		body.setActivationState(1);
 		body.activate(true);
 		GolfGame.physicsWorld.dynamicsWorld.addRigidBody(body);
 	}

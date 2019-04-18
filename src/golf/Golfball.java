@@ -5,6 +5,7 @@ import javax.vecmath.Vector3f;
 
 import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 
+import engine.Game;
 import engine.physics.PhysicsObject;
 
 public class Golfball extends PhysicsObject {
@@ -21,9 +22,13 @@ public class Golfball extends PhysicsObject {
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 		
+		if ( Game.keyboard.isKeyPressed("Space") ) {
+			this.setVelocity(new Vector3f(0,20,0));
+		}
+		
 		// Increase damping the SLOWER we are (so it feels more linear when stopping)
-		float speed = this.getVelocity().length();
+		float speed = (float) Math.max(0.1, this.getVelocity().lengthSquared());
 		float invSpeed = 1.0f/speed;
-		this.getBody().setDamping(invSpeed*0.4f, invSpeed*0.4f);
+		this.getBody().setDamping(0.2f, invSpeed*0.3f);
 	}
 }

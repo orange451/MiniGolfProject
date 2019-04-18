@@ -16,6 +16,9 @@ import com.badlogic.gdx.physics.bullet.collision.btTriangleMesh;
 public class PhysicsUtils {
 
 	public static btTriangleMesh getShapeFromModel(BranchGroup model) {
+		if ( model == null )
+			return new btTriangleMesh();
+		
 		ArrayList<Point3f> vertices = new ArrayList<Point3f>();
 		Enumeration<Node> children = model.getAllChildren();
 		while ( children.hasMoreElements() ) {
