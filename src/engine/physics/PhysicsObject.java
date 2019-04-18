@@ -68,7 +68,7 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 		
 		btRigidBodyConstructionInfo bodyInfo = new btRigidBodyConstructionInfo(mass, bodyMotionState, shape, ballInertia);
 		bodyInfo.setRestitution(0.8f);
-		bodyInfo.setFriction(0.5f);
+		bodyInfo.setFriction(0.7f);
 		
 		body = new btRigidBody(bodyInfo);
 		body.activate(true);

@@ -11,12 +11,11 @@ import javax.media.j3d.TriangleArray;
 import javax.vecmath.Point3f;
 
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.bullet.collision.btStridingMeshInterface;
 import com.badlogic.gdx.physics.bullet.collision.btTriangleMesh;
 
 public class PhysicsUtils {
 
-	public static btStridingMeshInterface getShapeFromModel(BranchGroup model) {
+	public static btTriangleMesh getShapeFromModel(BranchGroup model) {
 		ArrayList<Point3f> vertices = new ArrayList<Point3f>();
 		Enumeration<Node> children = model.getAllChildren();
 		while ( children.hasMoreElements() ) {

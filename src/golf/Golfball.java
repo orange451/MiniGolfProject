@@ -17,4 +17,12 @@ public class Golfball extends PhysicsObject {
 		this.setVelocity(new Vector3f(2,1,1.5f));
 	}
 
+	@Override
+	public void update(float deltaTime) {
+		super.update(deltaTime);
+		
+		float speed = this.getVelocity().length();
+		float invSpeed = 1.0f/speed;
+		this.getBody().setDamping(invSpeed*0.4f, invSpeed*0.4f);
+	}
 }

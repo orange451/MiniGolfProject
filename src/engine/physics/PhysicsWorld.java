@@ -25,7 +25,7 @@ public class PhysicsWorld {
 		btAxisSweep3 sweepBP = new btAxisSweep3(worldMin, worldMax);
 		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration);
 		
-		dynamicsWorld.setGravity(new Vector3(0, -10, 0));
+		dynamicsWorld.setGravity(new Vector3(0, -20, 0));
 	}
 
 	public void step(float deltaTime) {
