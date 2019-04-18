@@ -52,9 +52,10 @@ public class GolfGame extends Game {
 		
 		// Update the camera
 		direction += deltaTime*0.3;
-		float dist = 10;
+		float dist = 12;
 		Point3f to = ball.getPosition();
-		camera.setEye( to.x+(float)Math.cos(direction)*dist, to.y+dist/3, to.z+(float)Math.sin(direction)*dist );
+		to.add(new Point3f(0,0.7f,0));
+		camera.setEye( to.x+(float)Math.cos(direction)*dist, to.y+dist/5, to.z+(float)Math.sin(direction)*dist );
 		camera.setTo(to.x, to.y, to.z);
 		camera.update();
 	}
