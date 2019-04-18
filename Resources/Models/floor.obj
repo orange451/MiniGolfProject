@@ -92,7 +92,6 @@ vn 0.0 -1.0 0.0
 
 # g, 12 grouped triangles
 
-o g
 g g
 
 f 1/1/1 2/2/2 3/3/3

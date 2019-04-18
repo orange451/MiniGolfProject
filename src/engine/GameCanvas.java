@@ -1,16 +1,10 @@
 package engine;
 
 import java.awt.BorderLayout;
-import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
-import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.Group;
 import javax.swing.JPanel;
-import javax.vecmath.Color3f;
-import javax.vecmath.Point3d;
-import javax.vecmath.Vector3f;
-
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class GameCanvas extends JPanel implements GameUniverse {
