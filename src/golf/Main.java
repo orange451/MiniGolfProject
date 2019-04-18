@@ -4,6 +4,10 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import engine.GameCanvas;
+import engine.GameThread;
+import engine.GameUniverse;
+
 public class Main {
 	public static void main(String[] args) {
 		// Create the JFrame

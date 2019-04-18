@@ -1,4 +1,4 @@
-package golf;
+package engine;
 
 public class GameThread {
 	public static void start(Game callback, GameUniverse universe) {

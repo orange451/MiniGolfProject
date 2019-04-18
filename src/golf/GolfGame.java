@@ -1,5 +1,8 @@
 package golf;
 
+import engine.Game;
+import engine.GameUniverse;
+
 public class GolfGame extends Game {
 
 	@Override

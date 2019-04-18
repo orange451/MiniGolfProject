@@ -1,4 +1,4 @@
-package golf;
+package engine;
 
 import java.awt.BorderLayout;
 import javax.media.j3d.BoundingSphere;

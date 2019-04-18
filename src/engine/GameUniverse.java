@@ -1,4 +1,4 @@
-package golf;
+package engine;
 
 import javax.media.j3d.BranchGroup;
 
