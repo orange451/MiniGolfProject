@@ -9,6 +9,7 @@ import javax.vecmath.Vector3f;
 
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision.btBvhTriangleMeshShape;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
@@ -24,7 +25,19 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 	private btRigidBody body;
 	private TransformGroup localTransform;
 	
-	public PhysicsObject(String filepath, btCollisionShape shape) {
+	public PhysicsObject(String filepath) {
+		this(filepath, false);
+	}
+	
+	public PhysicsObject(String filepath, boolean anchored) {
+		this(filepath, anchored?0:0.5f);
+	}
+	
+	public PhysicsObject(String filepath, float mass) {
+		this(filepath, mass, null);
+	}
+	
+	public PhysicsObject(String filepath, float mass, btCollisionShape shape) {
 		try {
 			ObjectFile obj = new ObjectFile();
 			model = obj.load(filepath).getSceneGroup();
@@ -38,11 +51,20 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 			e.printStackTrace();
 		}
 		
-		float mass = 0.5f;
+		if ( shape == null ) {
+			// GImpact if needs mass
+			if ( mass > 0 ) {
+				
+			} else {
+				// Anchored physics object
+				shape = new btBvhTriangleMeshShape(PhysicsUtils.getShapeFromModel(model), true);
+			}
+		}
 		
 		btMotionState bodyMotionState = new btDefaultMotionState(new Matrix4().idt());
 		Vector3 ballInertia = new Vector3();
-		shape.calculateLocalInertia(mass, ballInertia);
+		if ( mass > 0 )
+			shape.calculateLocalInertia(mass, ballInertia);
 		
 		btRigidBodyConstructionInfo bodyInfo = new btRigidBodyConstructionInfo(mass, bodyMotionState, shape, ballInertia);
 		bodyInfo.setRestitution(0.8f);

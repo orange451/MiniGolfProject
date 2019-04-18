@@ -10,7 +10,7 @@ import engine.physics.PhysicsObject;
 public class Golfball extends PhysicsObject {
 	
 	public Golfball() {
-		super("Resources/Models/golfball.obj", new btSphereShape(1.0f));
+		super("Resources/Models/golfball.obj", 0.5f, new btSphereShape(1.0f));
 		
 		setPosition(new Point3f(0, 8, 0));
 		
