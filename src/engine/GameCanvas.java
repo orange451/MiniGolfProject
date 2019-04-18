@@ -5,6 +5,7 @@ import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.DirectionalLight;
+import javax.media.j3d.Group;
 import javax.swing.JPanel;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
@@ -30,6 +31,9 @@ public class GameCanvas extends JPanel implements GameUniverse {
 
 		// Create a structure to contain objects
 		mainGroup = new BranchGroup();
+		mainGroup.setCapability(BranchGroup.ALLOW_DETACH);
+		mainGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
+		mainGroup.setCapability(Group.ALLOW_CHILDREN_WRITE);
 
 		// Create a light that shines for 100m from the origin
 		Color3f light1Color = new Color3f(1.0f, 1.0f, 1.0f);
@@ -38,10 +42,6 @@ public class GameCanvas extends JPanel implements GameUniverse {
 		DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 		light1.setInfluencingBounds(bounds);
 		mainGroup.addChild(light1);
-
-		// Reset view & add to universe
-		universe.getViewingPlatform().setNominalViewingTransform();
-		universe.addBranchGraph(mainGroup);
 	}
 
 	@Override
