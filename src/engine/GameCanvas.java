@@ -34,14 +34,6 @@ public class GameCanvas extends JPanel implements GameUniverse {
 		mainGroup.setCapability(BranchGroup.ALLOW_DETACH);
 		mainGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
 		mainGroup.setCapability(Group.ALLOW_CHILDREN_WRITE);
-
-		// Create a light that shines for 100m from the origin
-		Color3f light1Color = new Color3f(1.0f, 1.0f, 1.0f);
-		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1024.0);
-		Vector3f light1Direction = new Vector3f(4.0f, -7.0f, -12.0f);
-		DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
-		light1.setInfluencingBounds(bounds);
-		mainGroup.addChild(light1);
 	}
 
 	@Override
