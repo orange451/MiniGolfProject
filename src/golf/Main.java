@@ -23,7 +23,6 @@ public class Main {
 		GameThread.start(new GolfGame(), (GameUniverse)c);
 		
 		// Reset view & add to universe
-		c.getUniverse().getViewingPlatform().setNominalViewingTransform();
 		c.getUniverse().addBranchGraph(c.getMainGroup());
 
 		// Display application
