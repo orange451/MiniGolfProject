@@ -21,6 +21,7 @@ public class Golfball extends PhysicsObject {
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 		
+		// Increase damping the SLOWER we are (so it feels more linear when stopping)
 		float speed = this.getVelocity().length();
 		float invSpeed = 1.0f/speed;
 		this.getBody().setDamping(invSpeed*0.4f, invSpeed*0.4f);

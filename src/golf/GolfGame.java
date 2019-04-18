@@ -12,15 +12,17 @@ import engine.physics.PhysicsWorld;
 public class GolfGame extends Game {
 	public static GameUniverse universe;
 	public static PhysicsWorld physicsWorld;
+	
 	public static Camera camera;
 	public static Golfball ball;
+	public static float direction;
 	
 	public ArrayList<GameObject> objects;
 	
 	@Override
 	public void initialize(GameUniverse universe) {
 		GolfGame.universe = universe;
-		new SunEnvironment();
+		new OutsideAmbientLight();
 		
 		// Physics
 		physicsWorld = new PhysicsWorld();
@@ -49,8 +51,10 @@ public class GolfGame extends Game {
 		}
 		
 		// Update the camera
+		direction += deltaTime*0.3;
+		float dist = 10;
 		Point3f to = ball.getPosition();
-		camera.setEye( to.x+14, to.y+14, to.z+14 );
+		camera.setEye( to.x+(float)Math.cos(direction)*dist, to.y+dist/3, to.z+(float)Math.sin(direction)*dist );
 		camera.setTo(to.x, to.y, to.z);
 		camera.update();
 	}
