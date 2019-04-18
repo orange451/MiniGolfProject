@@ -2,6 +2,8 @@ package golf;
 
 import java.util.ArrayList;
 
+import javax.vecmath.Point3f;
+
 import engine.Game;
 import engine.GameObject;
 import engine.GameUniverse;
@@ -40,12 +42,16 @@ public class GolfGame extends Game {
 		physicsWorld.step(deltaTime);
 		
 		// Update all the objects
-		for (int i = 0; i < objects.size(); i++) {
-			objects.get(i).update(deltaTime);
+		synchronized(objects) {
+			for (int i = 0; i < objects.size(); i++) {
+				objects.get(i).update(deltaTime);
+			}
 		}
 		
 		// Update the camera
-		camera.setEye( 8, 8, 8 );
+		Point3f to = ball.getPosition();
+		camera.setEye( to.x+14, to.y+14, to.z+14 );
+		camera.setTo(to.x, to.y, to.z);
 		camera.update();
 	}
 }

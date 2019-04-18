@@ -14,8 +14,9 @@ public class PhysicsWorld {
 	public btDiscreteDynamicsWorld dynamicsWorld;
 	
 	public PhysicsWorld() {
-		// Setup physics world
 		Bullet.init();
+		
+		// Setup physics world
 		btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
 		btCollisionDispatcher dispatcher = new btCollisionDispatcher(collisionConfiguration);
 		btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
@@ -23,6 +24,8 @@ public class PhysicsWorld {
 		Vector3 worldMax = new Vector3(1000f,1000f,1000f);
 		btAxisSweep3 sweepBP = new btAxisSweep3(worldMin, worldMax);
 		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration);
+		
+		dynamicsWorld.setGravity(new Vector3(0, -10, 0));
 	}
 
 	public void step(float deltaTime) {

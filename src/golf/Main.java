@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import engine.GameCanvas;
-import engine.GameThread;
-import engine.GameUniverse;
 
 public class Main {
 	public static void main(String[] args) {
@@ -15,12 +13,9 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Add 3d canvas
-		GameCanvas c = new GameCanvas();
+		GameCanvas c = new GameCanvas(new GolfGame());
 		c.setPreferredSize(new Dimension(640,480));
 		frame.add(c);
-		
-		// Start the game
-		GameThread.start(new GolfGame(), (GameUniverse)c);
 		
 		// Reset view & add to universe
 		c.getUniverse().addBranchGraph(c.getMainGroup());

@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
+import com.badlogic.gdx.physics.bullet.linearmath.btMotionState;
 import com.sun.j3d.loaders.objectfile.ObjectFile;
 
 import engine.GameObject;
@@ -37,11 +38,18 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 			e.printStackTrace();
 		}
 		
-		btRigidBodyConstructionInfo bodyInfo = new btRigidBodyConstructionInfo(0.5f, new btDefaultMotionState(new Matrix4()), shape, new Vector3());
+		float mass = 0.5f;
+		
+		btMotionState bodyMotionState = new btDefaultMotionState(new Matrix4().idt());
+		Vector3 ballInertia = new Vector3();
+		shape.calculateLocalInertia(mass, ballInertia);
+		
+		btRigidBodyConstructionInfo bodyInfo = new btRigidBodyConstructionInfo(mass, bodyMotionState, shape, ballInertia);
 		bodyInfo.setRestitution(0.8f);
 		bodyInfo.setFriction(0.5f);
 		
 		body = new btRigidBody(bodyInfo);
+		body.activate(true);
 		GolfGame.physicsWorld.dynamicsWorld.addRigidBody(body);
 	}
 	
@@ -96,5 +104,18 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 	@Override
 	public btRigidBody getBody() {
 		return body;
+	}
+	
+
+	@Override
+	public void setVelocity(Vector3f vector) {
+		body.activate(true);
+		body.setLinearVelocity(new Vector3(vector.x, vector.y, vector.z));
+	}
+
+	@Override
+	public Vector3f getVelocity() {
+		Vector3 vel = body.getLinearVelocity();
+		return new Vector3f( vel.x, vel.y, vel.z);
 	}
 }
