@@ -1,7 +1,7 @@
 package engine;
 
-import engine.user.Keyboard;
-import engine.user.Mouse;
+import engine.io.Keyboard;
+import engine.io.Mouse;
 
 public abstract class Game {
 	public static GameUniverse universe;

@@ -1,7 +1,5 @@
 package engine.physics;
 
-import java.io.FileReader;
-
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -18,9 +16,8 @@ import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 import com.badlogic.gdx.physics.bullet.linearmath.btMotionState;
-import com.sun.j3d.loaders.objectfile.ObjectFile;
-
 import engine.GameObject;
+import engine.obj.ObjModel;
 import golf.GolfGame;
 
 public abstract class PhysicsObject extends GameObject implements PhysicsInterf {
@@ -42,8 +39,10 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 	
 	public PhysicsObject(String filepath, float mass, btCollisionShape shape) {
 		try {
-			ObjectFile obj = new ObjectFile(ObjectFile.TRIANGULATE);
-			model = obj.load(new FileReader(filepath)).getSceneGroup();
+			//ObjectFile obj = new ObjectFile(ObjectFile.TRIANGULATE);
+			//model = obj.load(new FileReader(filepath)).getSceneGroup();
+			
+			model = ObjModel.load(filepath);
 			
 			localTransform = new TransformGroup();
 			localTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);

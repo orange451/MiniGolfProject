@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-import engine.user.KeyListener;
-import engine.user.MouseListener;
+import engine.io.KeyListener;
+import engine.io.MouseListener;
 
 public class GameCanvas extends Panel implements GameUniverse {
 	private static final long serialVersionUID = 1L;
