@@ -23,7 +23,11 @@ public class Golfball extends PhysicsObject {
 		super.update(deltaTime);
 		
 		if ( Game.keyboard.isKeyPressed("Space") ) {
-			this.setVelocity(new Vector3f(0,20,0));
+			float SPEED = 40;
+			float xx = (float) (Math.cos(GolfGame.direction+Math.PI)*SPEED);
+			float zz = (float) (Math.sin(GolfGame.direction+Math.PI)*SPEED);
+			Vector3f c = this.getVelocity();
+			this.setVelocity(new Vector3f(c.x+xx, c.y, c.z+zz));
 		}
 
 		if ( Game.keyboard.isKeyHeldDown("Q") )
@@ -32,7 +36,7 @@ public class Golfball extends PhysicsObject {
 			GolfGame.direction += deltaTime;
 		
 		// Increase damping the SLOWER we are (so it feels more linear when stopping)
-		float speed = (float) Math.max(0.1, this.getVelocity().lengthSquared());
+		float speed = (float) Math.max(0.1, this.getVelocity().length()/4f);
 		float invSpeed = 1.0f/speed;
 		this.getBody().setDamping(0.2f, invSpeed*0.3f);
 	}
