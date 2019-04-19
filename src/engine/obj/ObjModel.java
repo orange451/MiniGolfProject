@@ -44,7 +44,6 @@ public class ObjModel {
 		HashMap<String,ObjMaterial> materials = null;
 
 		ObjMaterial baseMaterial = new ObjMaterial("base");
-		baseMaterial.setDiffuse(1, 1, 1);
 		ObjMaterial currentMaterial = baseMaterial;
 		
 		BranchGroup model = new BranchGroup();
@@ -138,11 +137,11 @@ public class ObjModel {
 		Geometry result = geometryInfo.getGeometryArray();
 		
 		// Define colors
-		Color3f ambient = new Color3f(0.2f, 0.2f, 0.2f);
+		Color3f ambient = currentMaterial.getAmbient();
 		Color3f emissive = new Color3f(0.0f, 0.0f, 0.0f);
 		Color3f diffuse = currentMaterial.getDiffuse();
-		Color3f specular = new Color3f(1.0f, 1.0f, 1.0f);
-		float shininess = 70;
+		Color3f specular = currentMaterial.getSpecular();
+		float shininess = currentMaterial.getShininess();
 
 		// Create material
 		Appearance appearance = new Appearance();
@@ -192,6 +191,20 @@ public class ObjModel {
 							float b = (float) Double.parseDouble(temp[2]);
 
 							buildingMaterial.setDiffuse(r, g, b);
+						} else if (line.trim().startsWith("Ka")) {
+							String[] temp = line.substring(line.indexOf("Ka") + 3).split(" ");
+							float r = (float) Double.parseDouble(temp[0]);
+							float g = (float) Double.parseDouble(temp[1]);
+							float b = (float) Double.parseDouble(temp[2]);
+
+							buildingMaterial.setAmbient(r, g, b);
+						} else if (line.trim().startsWith("Ks")) {
+							String[] temp = line.substring(line.indexOf("Ks") + 3).split(" ");
+							float r = (float) Double.parseDouble(temp[0]);
+							float g = (float) Double.parseDouble(temp[1]);
+							float b = (float) Double.parseDouble(temp[2]);
+
+							buildingMaterial.setSpecular(r, g, b);
 						} else if (line.trim().startsWith("map_Kd")) {
 							String temp = line.substring(line.indexOf("map_Kd") + 7);
 							buildingMaterial.setTextureName(temp);
