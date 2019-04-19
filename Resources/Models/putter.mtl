@@ -1,0 +1,26 @@
+# Material file for putter.obj
+
+newmtl head
+	Ns 50
+	d 1
+	illum 2
+	Kd 0.6 0.6 0.6
+	Ks 0.33 0.33 0.33
+	Ka 0.2 0.2 0.2
+
+newmtl mat
+	Ns 5
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.2 0.2 0.2
+	Ka 0.2 0.2 0.2
+
+newmtl shaft
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.8 0.8 0.8
+	Ks 0.1 0.1 0.1
+	Ka 0.2 0.2 0.2
+

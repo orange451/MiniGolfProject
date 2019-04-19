@@ -35,6 +35,7 @@ public class GolfGame extends Game {
 		objects = new ArrayList<GameObject>();
 		objects.add(ball = new Golfball());
 		objects.add(new Floor());
+		objects.add(new Putter());
 		
 		objects.add(new PhysicsObject("Resources/Models/testHole.obj", true) {});
 	}
@@ -54,7 +55,7 @@ public class GolfGame extends Game {
 		}
 		
 		// Update the camera
-		float dist = 16	;
+		float dist = 28;
 		Point3f to = ball.getPosition();
 		to.add(new Point3f(0,0.7f,0));
 		camera.setEye( to.x+(float)Math.cos(direction)*dist, to.y+dist/5, to.z+(float)Math.sin(direction)*dist );
