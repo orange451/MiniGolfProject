@@ -16,9 +16,6 @@ public class Main {
 		GameCanvas c = new GameCanvas(new GolfGame());
 		c.setPreferredSize(new Dimension(640,480));
 		frame.add(c);
-		
-		// Reset view & add to universe
-		c.getUniverse().addBranchGraph(c.getMainGroup());
 
 		// Display application
 		frame.pack();

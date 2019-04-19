@@ -1,5 +1,7 @@
 package engine.physics;
 
+import java.io.FileReader;
+
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.btBvhTriangleMeshShape;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
+import com.badlogic.gdx.physics.bullet.collision.btGImpactMeshShape;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
@@ -39,8 +42,8 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 	
 	public PhysicsObject(String filepath, float mass, btCollisionShape shape) {
 		try {
-			ObjectFile obj = new ObjectFile();
-			model = obj.load(filepath).getSceneGroup();
+			ObjectFile obj = new ObjectFile(ObjectFile.TRIANGULATE);
+			model = obj.load(new FileReader(filepath)).getSceneGroup();
 			
 			localTransform = new TransformGroup();
 			localTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
@@ -54,7 +57,7 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 		if ( shape == null ) {
 			// GImpact if needs mass
 			if ( mass > 0 ) {
-				
+				shape = new btGImpactMeshShape(PhysicsUtils.getShapeFromModel(model));
 			} else {
 				// Anchored physics object
 				shape = new btBvhTriangleMeshShape(PhysicsUtils.getShapeFromModel(model), true);

@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Group;
+import javax.media.j3d.View;
 import javax.swing.JPanel;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
@@ -64,6 +65,9 @@ public class GameCanvas extends Panel implements GameUniverse {
 		mainGroup.setCapability(Group.ALLOW_CHILDREN_WRITE);
 		
 		callback.initialize(this);
+		
+		// Finalize
+		universe.addBranchGraph(mainGroup);
 		
 		canvas.addKeyListener(new KeyListener());
 		canvas.addMouseListener(new MouseListener());

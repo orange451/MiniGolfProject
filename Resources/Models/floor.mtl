@@ -3,7 +3,7 @@
 newmtl mat
 	Ns 0
 	d 1
-	illum 2
+	illum 0
 	Kd 0.14 0.5 0.14
 	Ks 0.0 0.0 0.0
 	Ka 0.2 0.2 0.2

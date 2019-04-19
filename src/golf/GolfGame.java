@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.vecmath.Point3f;
 
+import engine.Camera;
 import engine.Game;
 import engine.GameObject;
 import engine.GameUniverse;
