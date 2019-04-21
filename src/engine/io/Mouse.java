@@ -1,7 +1,9 @@
 package engine.io;
 
+import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Robot;
 import java.util.ArrayList;
 
 import engine.Game;
@@ -65,6 +67,22 @@ public class Mouse {
 	public Point getMouseLocation() {
 		return new Point(mouse_x, mouse_y);
 	}
+	
+	private Robot robot;
+	public void setMouseLocation(float x, float y) {
+		if ( robot == null ) {
+			try {
+				robot = new Robot();
+			} catch (AWTException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+		Point FrameLocation = Game.universe.getCanvas().getLocationOnScreen();
+		robot.mouseMove((int)(FrameLocation.x+x), (int)(FrameLocation.y+y));
+		mouse_x = (int)x;
+		mouse_y = (int)y;
+	}
 
 	public void tick() {
 		for (int i = mousebuttons.size() - 1; i >= 0; i--) {
@@ -90,5 +108,14 @@ public class Mouse {
 				mousebuttons.remove(i);
 			}
 		}
+		lastMousePos.setLocation(getMouseLocation());
+	}
+
+	private Point lastMousePos = new Point();
+	public Point getDelta() {
+		Point mousePosition = getMouseLocation();
+		Point delta = new Point(mousePosition.x-lastMousePos.x, mousePosition.y-lastMousePos.y);
+		
+		return delta;
 	}
 }

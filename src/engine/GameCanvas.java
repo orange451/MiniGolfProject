@@ -7,9 +7,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Group;
-import javax.media.j3d.View;
-import javax.swing.JPanel;
-
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import engine.io.KeyListener;
