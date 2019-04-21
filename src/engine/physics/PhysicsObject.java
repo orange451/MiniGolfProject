@@ -3,7 +3,6 @@ package engine.physics;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.vecmath.Matrix4f;
-import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 import com.badlogic.gdx.math.Matrix4;
@@ -58,8 +57,9 @@ public abstract class PhysicsObject extends DrawableObject implements PhysicsInt
 		
 		body = new btRigidBody(bodyInfo);
 		body.setActivationState(1);
+		body.setHitFraction(0);
 		body.activate(true);
-		GolfGame.physicsWorld.dynamicsWorld.addRigidBody(body);
+		GolfGame.getPhysicsWorld().dynamicsWorld.addRigidBody(body);
 	}
 	
 	@Override
@@ -72,15 +72,15 @@ public abstract class PhysicsObject extends DrawableObject implements PhysicsInt
 	}
 
 	@Override
-	public Point3f getPosition() {
+	public Vector3f getPosition() {
 		Matrix4f worldMatrix = getWorldMatrix();
-		return new Point3f( worldMatrix.m03, worldMatrix.m13, worldMatrix.m23);
+		return new Vector3f( worldMatrix.m03, worldMatrix.m13, worldMatrix.m23);
 	}
 
 	@Override
-	public void setPosition(Point3f position) {
+	public void setPosition(Vector3f position) {
 		Matrix4f worldMatrix = getWorldMatrix();
-		worldMatrix.setTranslation(new Vector3f(position.x, position.y, position.z));
+		worldMatrix.setTranslation(position);
 		setWorldMatrix(worldMatrix);
 	}
 

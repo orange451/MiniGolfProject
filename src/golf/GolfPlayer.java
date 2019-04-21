@@ -18,26 +18,26 @@ public class GolfPlayer extends GameObject {
 	private Putter putter;
 	private boolean turnCamera;
 	private int freezeCamera;
-	
+
 	private boolean canSwing;
 	private float swingOffset;
-	
+
 	public GolfPlayer() {
 		ball = new Golfball();
 		Game.addObject(ball);
-		
+
 		putter = new Putter();
 		Game.addObject(putter);
-		
+
 		turnCamera = true;
 	}
-	
+
 	@Override
 	public void update(float deltaTime) {
 
 		// Get mouse delta
 		Point delta = Game.mouse.getDelta();
-		
+
 		// Turn Camera logic
 		if ( turnCamera ) {
 			freezeCamera--;
@@ -46,14 +46,14 @@ public class GolfPlayer extends GameObject {
 				float SENS = 512;
 				yaw += delta.x/SENS;
 				pitch += delta.y/SENS;
-				
+
 				// Limit pitch
 				if ( pitch < Math.PI/2+0.15f )
 					pitch = (float)Math.PI/2+0.15f;
 				if ( pitch > Math.PI-0.5f )
 					pitch = (float)Math.PI-0.5f;
 			}
-			
+
 			// Reset mouse
 			boolean active = javax.swing.FocusManager.getCurrentManager().getActiveWindow() != null;
 			if ( active )
@@ -62,44 +62,51 @@ public class GolfPlayer extends GameObject {
 			// In putter swing mode...
 			float ds = delta.y/32f;
 			swingOffset += ds;
-			
+
+			// We hit the ball!
 			if ( swingOffset < 0 ) {
+				float force = Math.abs(ds)*32;
+				if ( force > 150)
+					force = 150;
+
+				System.out.println(force);
+
 				freezeCamera = 30;
 				swingOffset = 0;
-				hit(Math.abs(ds)*32);
+				hit(force);
 			}
 		}
-		
+
 		// Compute if we can swing
 		canSwing = ball.isStill();
 		if ( !canSwing )
 			turnCamera = true;
-		
+
 		// Position the putter
 		{
 			int offsetY = canSwing?0:99999;
 			float pushBack = 0.75f+swingOffset;
-			Point3f ballPosition = getBall().getPosition();
+			Vector3f ballPosition = getBall().getPosition();
 			Matrix4f worldMatrix = new Matrix4f();
 			worldMatrix.setIdentity();
 			worldMatrix.rotY(-yaw+(float)Math.PI/2);
 			worldMatrix.setTranslation(new Vector3f(ballPosition.x, ballPosition.y+offsetY-0.7f, ballPosition.z));
-			
+
 			Matrix4f pushMat = new Matrix4f();
 			pushMat.setIdentity();
 			pushMat.setTranslation(new Vector3f(0, 0, pushBack));
 			worldMatrix.mul(pushMat);
-			
+
 			putter.setWorldMatrix(worldMatrix);
 		}
-		
+
 		// Toggle camera turn. Prepare for ball hit
 		if ( Game.mouse.isMouseButtonPressed(Mouse.LEFT_MOUSE) && canSwing )
 			turnCamera = !turnCamera;
-		
+
 		// Update the camera
 		float dist = 28;
-		Point3f to = getPosition();
+		Vector3f to = getPosition();
 		to.add(new Point3f(0,0.7f,0));
 		float xx = (float)Math.cos(yaw)*(float)Math.sin(pitch);
 		float zz = (float)Math.sin(yaw)*(float)Math.sin(pitch);
@@ -110,15 +117,15 @@ public class GolfPlayer extends GameObject {
 	}
 
 	@Override
-	public Point3f getPosition() {
+	public Vector3f getPosition() {
 		if ( ball != null ) {
 			return ball.getPosition();
 		}
-		return new Point3f();
+		return new Vector3f();
 	}
 
 	@Override
-	public void setPosition(Point3f position) {
+	public void setPosition(Vector3f position) {
 		//
 	}
 
@@ -129,15 +136,15 @@ public class GolfPlayer extends GameObject {
 	public float getYaw() {
 		return yaw;
 	}
-	
+
 	public float getPitch() {
 		return pitch;
 	}
-	
+
 	public void hit(float force) {
 		float xx = (float) (Math.cos(GolfGame.player.getYaw()+Math.PI)*force);
 		float zz = (float) (Math.sin(GolfGame.player.getYaw()+Math.PI)*force);
-		
+
 		Vector3f c = ball.getVelocity();
 		ball.setVelocity(new Vector3f(c.x+xx, c.y, c.z+zz));
 	}
