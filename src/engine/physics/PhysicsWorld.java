@@ -25,12 +25,12 @@ public class PhysicsWorld {
 		btAxisSweep3 sweepBP = new btAxisSweep3(worldMin, worldMax);
 		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration);
 		
-		dynamicsWorld.setGravity(new Vector3(0, -40, 0));
+		dynamicsWorld.setGravity(new Vector3(0, -60, 0));
 	}
 
 	public void step(float deltaTime) {
 		if ( dynamicsWorld == null ) 
 			return;
-		dynamicsWorld.stepSimulation(deltaTime, 2);
+		dynamicsWorld.stepSimulation(deltaTime, 4);
 	}
 }

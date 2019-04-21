@@ -2,7 +2,6 @@ package engine.physics;
 
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -16,42 +15,27 @@ import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 import com.badlogic.gdx.physics.bullet.linearmath.btMotionState;
-import engine.GameObject;
-import engine.obj.ObjModel;
+
+import engine.DrawableObject;
 import golf.GolfGame;
 
-public abstract class PhysicsObject extends GameObject implements PhysicsInterf {
-	private BranchGroup model;
+public abstract class PhysicsObject extends DrawableObject implements PhysicsInterf {
 	private btRigidBody body;
-	private TransformGroup localTransform;
 	
-	public PhysicsObject(String filepath) {
-		this(filepath, false);
+	public PhysicsObject(BranchGroup model) {
+		this(model, false);
 	}
 	
-	public PhysicsObject(String filepath, boolean anchored) {
-		this(filepath, anchored?0:0.5f);
+	public PhysicsObject(BranchGroup model, boolean anchored) {
+		this(model, anchored?0:0.5f);
 	}
 	
-	public PhysicsObject(String filepath, float mass) {
-		this(filepath, mass, null);
+	public PhysicsObject(BranchGroup model, float mass) {
+		this(model, mass, null);
 	}
 	
-	public PhysicsObject(String filepath, float mass, btCollisionShape shape) {
-		try {
-			//ObjectFile obj = new ObjectFile(ObjectFile.TRIANGULATE);
-			//model = obj.load(new FileReader(filepath)).getSceneGroup();
-			
-			model = ObjModel.load(filepath);
-			
-			localTransform = new TransformGroup();
-			localTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-			localTransform.addChild(model);
-			
-			GolfGame.universe.getMainGroup().addChild( localTransform );
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public PhysicsObject(BranchGroup model, float mass, btCollisionShape shape) {
+		super(model);
 		
 		if ( shape == null ) {
 			// GImpact if needs mass
@@ -80,14 +64,11 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 	
 	@Override
 	public void update(float deltaTime) {
-		if ( localTransform == null )
-			return;
-		
 		// Set our position to the physics body position
 		Matrix4 worldTransform = body.getWorldTransform();
-		Transform3D transform = new Transform3D(worldTransform.getValues());
+		Matrix4f transform = new Matrix4f(worldTransform.getValues());
 		transform.transpose();
-		localTransform.setTransform(transform);
+		setWorldMatrix(transform);
 	}
 
 	@Override
@@ -102,22 +83,13 @@ public abstract class PhysicsObject extends GameObject implements PhysicsInterf 
 		worldMatrix.setTranslation(new Vector3f(position.x, position.y, position.z));
 		setWorldMatrix(worldMatrix);
 	}
-	
-	@Override
-	public Matrix4f getWorldMatrix() {
-		Transform3D transform = new Transform3D();
-		localTransform.getTransform(transform);
-		
-		float[] vals = new float[16];
-		transform.get(vals);
-		return new Matrix4f(vals);
-	}
 
 	@Override
 	public void setWorldMatrix(Matrix4f worldMatrix) {
-		Transform3D transform = new Transform3D(worldMatrix);
-		localTransform.setTransform(transform);
+		// Use parents set world matrix function for drawing
+		super.setWorldMatrix(worldMatrix);
 		
+		// Store matrix into physics object as well
 		Transform3D temp = new Transform3D(worldMatrix);
 		temp.transpose();
 		float[] vals = new float[16];

@@ -23,7 +23,7 @@ import engine.io.FileIO;
 import engine.io.FileUtils;
 
 public class ObjModel {	
-	public static BranchGroup load(String path) throws FileNotFoundException {
+	public static BranchGroup load(String path) {
 		
 		// Open the file
 		BufferedReader reader = FileIO.file_text_open_read(ObjModel.class.getClassLoader(), path);
@@ -34,7 +34,7 @@ public class ObjModel {
 
 		// File Not Found
 		if (reader == null)
-			throw new FileNotFoundException();
+			return null;
 
 		ArrayList<Point3f> vertices = new ArrayList<Point3f>();
 		ArrayList<Point2f> textures  = new ArrayList<Point2f>();

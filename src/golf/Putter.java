@@ -1,9 +1,15 @@
 package golf;
 
-import engine.physics.PhysicsObject;
+import engine.DrawableObject;
+import engine.obj.ObjModel;
 
-public class Putter extends PhysicsObject {
+public class Putter extends DrawableObject {
 	public Putter() {
-		super("Resources/Models/putter.obj", true);
+		super(ObjModel.load("Resources/Models/putter.obj"));
+	}
+
+	@Override
+	public void update(float deltaTime) {
+		//
 	}
 }

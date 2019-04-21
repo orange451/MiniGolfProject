@@ -2,6 +2,7 @@ package golf;
 
 import engine.Game;
 import engine.GameUniverse;
+import engine.obj.ObjModel;
 import engine.physics.PhysicsObject;
 import engine.physics.PhysicsWorld;
 
@@ -20,8 +21,11 @@ public class GolfGame extends Game {
 		// Objects in the scene
 		Game.addObject(player = new GolfPlayer());
 		Game.addObject(new Floor());
-		Game.addObject(new Putter());
-		Game.addObject(new PhysicsObject("Resources/Models/testHole.obj", true) {});
+		Game.addObject(new PhysicsObject(ObjModel.load("Resources/Models/testHole.obj"), true) {
+			{
+				this.getBody().setRestitution(0.4f);
+			}
+		});
 	}
 	
 	@Override
