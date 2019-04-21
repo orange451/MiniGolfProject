@@ -46,16 +46,21 @@ public abstract class PhysicsObject extends DrawableObject implements PhysicsInt
 			}
 		}
 		
+		// Calculate inertia
 		btMotionState bodyMotionState = new btDefaultMotionState(new Matrix4().idt());
 		Vector3 ballInertia = new Vector3();
 		if ( mass > 0 )
 			shape.calculateLocalInertia(mass, ballInertia);
 		
+		// Create initial body info
 		btRigidBodyConstructionInfo bodyInfo = new btRigidBodyConstructionInfo(mass, bodyMotionState, shape, ballInertia);
 		bodyInfo.setRestitution(0.8f);
 		bodyInfo.setFriction(0.7f);
 		
+		// Create rigidbody
 		body = new btRigidBody(bodyInfo);
+		body.setCcdMotionThreshold((float) 1e-7);
+		body.setCcdSweptSphereRadius((float) 1e-2);
 		body.setActivationState(1);
 		body.setHitFraction(0);
 		body.activate(true);

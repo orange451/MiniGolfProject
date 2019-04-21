@@ -1,9 +1,7 @@
 package golf;
 
-import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 
@@ -33,7 +31,7 @@ public class Golfball extends PhysicsObject {
 		// Increase damping the SLOWER we are (so it feels more linear when stopping)
 		float speed = (float) Math.max(0.0, this.getVelocity().length()/4f);
 		float invSpeed = 1.0f/(float)Math.max(0.1, speed);
-		this.getBody().setDamping(onGround?0.5f:0.4f, invSpeed*(onGround?0.4f:0.2f));
+		this.getBody().setDamping(onGround?0.5f:0.1f, invSpeed*(onGround?0.4f:0.2f));
 		
 		if ( speed < 0.05 )
 			stillTicks++;

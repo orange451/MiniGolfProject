@@ -66,8 +66,8 @@ public class GolfPlayer extends GameObject {
 			// We hit the ball!
 			if ( swingOffset < 0 ) {
 				float force = Math.abs(ds)*32;
-				if ( force > 150)
-					force = 150;
+				if ( force > 250)
+					force = 250;
 
 				System.out.println(force);
 
