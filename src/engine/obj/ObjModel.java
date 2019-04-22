@@ -15,6 +15,7 @@ import javax.media.j3d.Geometry;
 import javax.media.j3d.Material;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Texture;
+import javax.media.j3d.TextureAttributes;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point2f;
@@ -148,6 +149,11 @@ public class ObjModel {
 		Appearance appearance = new Appearance();
 		Material material = new Material(ambient, emissive, diffuse, specular, shininess);
 		appearance.setMaterial(material);
+		
+		// Texture
+		TextureAttributes tattr = new TextureAttributes();
+		tattr.setTextureMode(TextureAttributes.COMBINE);
+		appearance.setTextureAttributes(tattr);
 		appearance.setTexture(diffuseT);
 		
 		// Build model
@@ -209,7 +215,11 @@ public class ObjModel {
 							try {
 								String imagePath = FileUtils.getFileDirectoryFromPath(materialFile)+File.separator+temp;
 								image = ImageIO.read(FileUtils.getFileURL(imagePath));
-								Texture texture = new TextureLoader(image, TextureLoader.ALLOW_NON_POWER_OF_TWO).getTexture();
+								Texture texture = new TextureLoader(image, TextureLoader.ALLOW_NON_POWER_OF_TWO | TextureLoader.GENERATE_MIPMAP).getTexture();
+								texture.setMipMapMode(Texture.MULTI_LEVEL_MIPMAP);
+								texture.setAnisotropicFilterMode(Texture.ANISOTROPIC_SINGLE_VALUE);
+								texture.setMinFilter(Texture.NICEST);
+								texture.setMagFilter(Texture.NICEST);
 								buildingMaterial.setTexture(texture);
 							} catch (MalformedURLException e) {
 								e.printStackTrace();

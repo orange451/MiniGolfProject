@@ -12,9 +12,10 @@ import engine.io.Mouse;
 import engine.sound.Sound;
 
 public class GolfPlayer extends GameObject {
-
 	public float yaw;
 	public float pitch;
+	public boolean paused;
+	
 	private Golfball ball;
 	private Putter putter;
 	private boolean turnCamera;
@@ -22,8 +23,6 @@ public class GolfPlayer extends GameObject {
 
 	private boolean canSwing;
 	private float swingOffset;
-	
-	private boolean paused;
 	
 	private Sound hitSound;
 
@@ -72,8 +71,8 @@ public class GolfPlayer extends GameObject {
 				// We hit the ball!
 				if ( swingOffset < 0 ) {
 					float force = Math.abs(ds)*48;
-					if ( force > 250)
-						force = 250;
+					if ( force > 100)
+						force = 100;
 	
 					freezeCamera = 30;
 					swingOffset = 0;

@@ -1,5 +1,6 @@
 package golf;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import engine.Game;
@@ -33,5 +34,10 @@ public class GolfGame extends Game {
 	@Override
 	public void paint(Graphics2D g) {
 		g.drawString("Hello World!", 32, 32);
+		
+		if ( player.paused ) {
+			g.setColor(new Color(0.2f,0.2f,0.2f,0.5f));
+			g.fillRect(0, 0, getUniverse().getCanvas().getWidth(), getUniverse().getCanvas().getHeight());
+		}
 	}
 }
