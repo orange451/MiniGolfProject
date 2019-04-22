@@ -8,7 +8,9 @@ Joshua Ackerman
 Shane Kruse
 
 # Required Libraries
-[Java3D](https://jogamp.org)
+[Java3D Core + Utils](http://jogamp.org/deployment/java3d/1.6.0-final/jogamp-java3d.7z)
+
+[JogAmp Fat](http://jogamp.org/deployment/jogamp-current/archive/jogamp-fat-all.7z)
 
 [LibGDX+Bullet](https://libgdx.badlogicgames.com/old-site/releases/)
 
