@@ -1,7 +1,6 @@
 package engine;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.Panel;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -75,17 +74,12 @@ public class GameCanvas extends Panel implements GameUniverse {
 		
 		// Finalize
 		universe.addBranchGraph(mainGroup);
+		canvas.getView().setMinimumFrameCycleTime(1000/Game.FRAMERATE);
 		
 		canvas.addKeyListener(new KeyListener());
 		canvas.addMouseListener(new MouseListener());
 	}
 	
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		System.out.println("A");
-	}
-
 	@Override
 	public SimpleUniverse getUniverse() {
 		return universe;

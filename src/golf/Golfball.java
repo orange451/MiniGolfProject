@@ -37,6 +37,11 @@ public class Golfball extends PhysicsObject {
 			stillTicks++;
 		else
 			stillTicks = 0;
+		
+		if ( this.getPosition().y < -2 ) {
+			this.setVelocity(new Vector3f());
+			this.setPosition(new Vector3f(0, 4, 0));
+		}
 	}
 	
 	public boolean isStill() {

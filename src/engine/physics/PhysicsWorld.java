@@ -12,15 +12,16 @@ import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionWorld;
 import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
 import com.badlogic.gdx.physics.bullet.dynamics.btConstraintSolver;
-import com.badlogic.gdx.physics.bullet.dynamics.btDiscreteDynamicsWorld;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btSequentialImpulseConstraintSolver;
+import com.badlogic.gdx.physics.bullet.softbody.btDefaultSoftBodySolver;
+import com.badlogic.gdx.physics.bullet.softbody.btSoftRigidDynamicsWorld;
 
 import engine.Game;
 import engine.GameObject;
 
 public class PhysicsWorld {
-	public btDiscreteDynamicsWorld dynamicsWorld;
+	public btSoftRigidDynamicsWorld dynamicsWorld;
 	
 	public PhysicsWorld() {
 		Bullet.init();
@@ -29,10 +30,11 @@ public class PhysicsWorld {
 		btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
 		btCollisionDispatcher dispatcher = new btCollisionDispatcher(collisionConfiguration);
 		btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
+        btDefaultSoftBodySolver softbodySolver = new btDefaultSoftBodySolver();
 		Vector3 worldMin = new Vector3(-1000f,-1000f,-1000f);
 		Vector3 worldMax = new Vector3(1000f,1000f,1000f);
 		btAxisSweep3 sweepBP = new btAxisSweep3(worldMin, worldMax);
-		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration);
+		dynamicsWorld = new btSoftRigidDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration, softbodySolver);
 		
 		dynamicsWorld.setGravity(new Vector3(0, -60, 0));
 	}
@@ -40,7 +42,7 @@ public class PhysicsWorld {
 	public void step(float deltaTime) {
 		if ( dynamicsWorld == null ) 
 			return;
-		dynamicsWorld.stepSimulation(1/60f, 4);
+		dynamicsWorld.stepSimulation(1/(float)Game.FRAMERATE, 4);
 	}
 	
 	public ClosestRayResultCallback rayTest( Vector3f origin, Vector3f direction, PhysicsObject physObj ) {
