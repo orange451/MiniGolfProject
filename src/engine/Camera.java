@@ -13,7 +13,7 @@ public class Camera {
 	private Point3d to;
 	private float near = 0.1f;
 	private float far = 1024;
-	private float fov = 70;
+	private float fov = 74;
 
 	public Camera() {
 		eye = new Point3d(0,0,8);
@@ -29,16 +29,16 @@ public class Camera {
 	}
 
 	public void update() {
-		TransformGroup tGroup = GolfGame.universe.getUniverse().getViewingPlatform().getViewPlatformTransform();
+		TransformGroup tGroup = GolfGame.getUniverse().getUniverse().getViewingPlatform().getViewPlatformTransform();
 
 	    Transform3D lookAt = new Transform3D();
 	    lookAt.lookAt( eye, to, new Vector3d( 0.0, 1.0, 0.0) );
 	    lookAt.invert();
 		tGroup.setTransform(lookAt);
 		
-		View view = Game.universe.getCanvas().getView();
+		View view = Game.getUniverse().getCanvas().getView();
 		view.setBackClipDistance(far);
 		view.setFrontClipDistance(near);
-		view.setFieldOfView(fov);
+		view.setFieldOfView(Math.toRadians(fov));
 	}
 }

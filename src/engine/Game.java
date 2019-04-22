@@ -8,10 +8,11 @@ import engine.io.Mouse;
 import engine.physics.PhysicsWorld;
 
 public abstract class Game {
-	public static GameUniverse universe;
-	public static Camera camera;
+	private static Camera camera;
 	private static Game game;
-	private static PhysicsWorld physicsWorld;
+	
+	protected static PhysicsWorld physicsWorld;
+	protected static GameUniverse universe;
 
 	protected ArrayList<GameObject> objects;
 
@@ -30,6 +31,14 @@ public abstract class Game {
 	
 	public static PhysicsWorld getPhysicsWorld() {
 		return physicsWorld;
+	}
+	
+	public static GameUniverse getUniverse() {
+		return universe;
+	}
+	
+	public static Camera getCamera() {
+		return camera;
 	}
 	
 	public void step(float deltaTime) {

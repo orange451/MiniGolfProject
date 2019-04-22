@@ -18,7 +18,7 @@ public class GolfGame extends Game {
 		// Objects in the scene
 		Game.addObject(player = new GolfPlayer());
 		Game.addObject(new Floor());
-		Game.addObject(new PhysicsObject(ObjModel.load("Resources/Models/testHole.obj"), true) {
+		Game.addObject(new PhysicsObject(ObjModel.load("Resources/Models/hole1/Hole.obj"), true) {
 			{
 				this.getBody().setRestitution(0.6f);
 			}

@@ -40,9 +40,10 @@ public abstract class PhysicsObject extends DrawableObject implements PhysicsInt
 			// GImpact if needs mass
 			if ( mass > 0 ) {
 				shape = new btGImpactMeshShape(PhysicsUtils.getShapeFromModel(model));
+				((btGImpactMeshShape)shape).updateBound();
 			} else {
 				// Anchored physics object
-				shape = new btBvhTriangleMeshShape(PhysicsUtils.getShapeFromModel(model), true);
+				shape = new btBvhTriangleMeshShape(PhysicsUtils.getShapeFromModel(model), false);
 			}
 		}
 		
@@ -54,13 +55,13 @@ public abstract class PhysicsObject extends DrawableObject implements PhysicsInt
 		
 		// Create initial body info
 		btRigidBodyConstructionInfo bodyInfo = new btRigidBodyConstructionInfo(mass, bodyMotionState, shape, ballInertia);
-		bodyInfo.setRestitution(0.8f);
-		bodyInfo.setFriction(0.7f);
+		bodyInfo.setRestitution(0.4f);
+		bodyInfo.setFriction(0.4f);
 		
 		// Create rigidbody
 		body = new btRigidBody(bodyInfo);
-		body.setCcdMotionThreshold((float) 1e-7);
-		body.setCcdSweptSphereRadius((float) 1e-2);
+		body.setCcdMotionThreshold(1e4f);
+		body.setCcdSweptSphereRadius(0.2f);
 		body.setActivationState(1);
 		body.setHitFraction(0);
 		body.activate(true);

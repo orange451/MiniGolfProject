@@ -47,7 +47,10 @@ public class GolfPlayer extends GameObject {
 
 		// Turn Camera logic
 		if ( !paused ) {
+			Game.mouse.setCursor(Mouse.BLANK);
+			
 			if ( turnCamera ) {
+				swingOffset = 0;
 				freezeCamera--;
 				if ( freezeCamera < 0 ) {
 					// Apply direction
@@ -61,11 +64,6 @@ public class GolfPlayer extends GameObject {
 					if ( pitch > Math.PI-0.5f )
 						pitch = (float)Math.PI-0.5f;
 				}
-	
-				// Reset mouse
-				boolean active = javax.swing.FocusManager.getCurrentManager().getActiveWindow() != null;
-				if ( active )
-					Game.mouse.setMouseLocation(100, 100);
 			} else {
 				// In putter swing mode...
 				float ds = delta.y/32f;
@@ -73,7 +71,7 @@ public class GolfPlayer extends GameObject {
 	
 				// We hit the ball!
 				if ( swingOffset < 0 ) {
-					float force = Math.abs(ds)*32;
+					float force = Math.abs(ds)*48;
 					if ( force > 250)
 						force = 250;
 	
@@ -83,6 +81,13 @@ public class GolfPlayer extends GameObject {
 					hit(force);
 				}
 			}
+			
+			// Reset mouse
+			boolean active = javax.swing.FocusManager.getCurrentManager().getActiveWindow() != null;
+			if ( active )
+				Game.mouse.setMouseLocation(Game.getUniverse().getCanvas().getWidth()/2, Game.getUniverse().getCanvas().getHeight()/2);
+		} else {
+			Game.mouse.setCursor(Mouse.NORMAL);
 		}
 
 		// Compute if we can swing
@@ -106,6 +111,8 @@ public class GolfPlayer extends GameObject {
 			worldMatrix.mul(pushMat);
 
 			putter.setWorldMatrix(worldMatrix);
+			
+			putter.setTransparency(turnCamera?0.5f:0.0f);
 		}
 
 		// Toggle camera turn. Prepare for ball hit
@@ -122,9 +129,9 @@ public class GolfPlayer extends GameObject {
 		float xx = (float)Math.cos(yaw)*(float)Math.sin(pitch);
 		float zz = (float)Math.sin(yaw)*(float)Math.sin(pitch);
 		float yy = (float)-Math.cos(pitch);
-		Game.camera.setEye( to.x+xx*dist, to.y+yy*dist, to.z+zz*dist );
-		Game.camera.setTo(to.x, to.y, to.z);
-		Game.camera.update();
+		Game.getCamera().setEye( to.x+xx*dist, to.y+yy*dist, to.z+zz*dist );
+		Game.getCamera().setTo(to.x, to.y, to.z);
+		Game.getCamera().update();
 	}
 
 	@Override

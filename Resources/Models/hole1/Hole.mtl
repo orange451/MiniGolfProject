@@ -1,0 +1,46 @@
+# Material file for Hole.obj
+
+newmtl 01___Default
+	Ns 8
+	d 1
+	illum 2
+	Kd 0.0588 0.0588 0.0588
+	Ks 0.495 0.495 0.495
+	Ka 0.0588 0.0588 0.0588
+
+newmtl Carpet
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.588 0.588 0.588
+	Ks 0.0 0.0 0.0
+	Ka 0.588 0.588 0.588
+	map_Kd Diffuse02.jpg
+
+newmtl Brick_2
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.588 0.588 0.588
+	Ks 0.0 0.0 0.0
+	Ka 0.588 0.588 0.588
+	map_Kd Brick03.jpg
+
+newmtl Brick1
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.588 0.588 0.588
+	Ks 0.0 0.0 0.0
+	Ka 0.588 0.588 0.588
+	map_Kd Brick02.jpg
+
+newmtl Brick3
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.588 0.588 0.588
+	Ks 0.0 0.0 0.0
+	Ka 0.588 0.588 0.588
+	map_Kd Brick04.jpg
+
