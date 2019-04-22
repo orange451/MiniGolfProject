@@ -66,7 +66,7 @@ public class Golfball extends PhysicsObject {
 			
 			// Increment stuck ticks if we're not moving anymore...
 			float distance = t.length();
-			if ( distance < 0.1 ) {
+			if ( distance < 0.04 ) {
 				stuckTicks++;
 			}
 			
