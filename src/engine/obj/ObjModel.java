@@ -112,11 +112,14 @@ public class ObjModel {
 			Point3f vertex1 = vertices.get(indices.get(i+0));
 			Point3f vertex2 = vertices.get(indices.get(i+3));
 			Point3f vertex3 = vertices.get(indices.get(i+6));
-
-			Point2f tc1 = textures.get(indices.get(i+1));
-			Point2f tc2 = textures.get(indices.get(i+4));
-			Point2f tc3 = textures.get(indices.get(i+7));
-
+			
+			Point2f tc1 = null, tc2 = null, tc3 = null;
+			if ( textures.size() > 0 ) {
+				tc1 = textures.get(indices.get(i+1));
+				tc2 = textures.get(indices.get(i+4));
+				tc3 = textures.get(indices.get(i+7));
+			}
+			
 			Vector3f normal1 = normals.get(indices.get(i+2));
 			Vector3f normal2 = normals.get(indices.get(i+5));
 			Vector3f normal3 = normals.get(indices.get(i+8));
@@ -124,9 +127,13 @@ public class ObjModel {
 			triangles.setCoordinate(j*3+0, vertex1);
 			triangles.setCoordinate(j*3+1, vertex2);
 			triangles.setCoordinate(j*3+2, vertex3);
-			triangles.setTextureCoordinate(j*3+0, tc1);
-			triangles.setTextureCoordinate(j*3+1, tc2);
-			triangles.setTextureCoordinate(j*3+2, tc3);
+			
+			if ( textures.size() > 0 ) {
+				triangles.setTextureCoordinate(j*3+0, tc1);
+				triangles.setTextureCoordinate(j*3+1, tc2);
+				triangles.setTextureCoordinate(j*3+2, tc3);
+			}
+			
 			triangles.setNormal(j*3+0, normal1);
 			triangles.setNormal(j*3+1, normal2);
 			triangles.setNormal(j*3+2, normal3);
@@ -170,7 +177,9 @@ public class ObjModel {
 			
 			// Write (VERTEX, TEXTURE, NORMAL) for each index.
 			for (int j = 0; j < 3; j++) {
-				int index = Integer.parseInt(ind[j]) - 1;
+				int tt = 0;
+				try { tt = Integer.parseInt(ind[j]); } catch(Exception e) { }
+				int index = tt - 1;
 				indices.add(index);
 			}
 		}

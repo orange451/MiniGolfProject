@@ -5,11 +5,13 @@ import java.awt.Graphics2D;
 
 import engine.Game;
 import engine.GameUniverse;
-import engine.obj.ObjModel;
 import engine.physics.PhysicsObject;
+import golf.hole.Hole;
+import golf.hole.*;
 
 public class GolfGame extends Game {
 	public static GolfPlayer player;
+	private static Hole currentHole;
 	
 	@Override
 	public void initialize(GameUniverse universe) {
@@ -17,13 +19,19 @@ public class GolfGame extends Game {
 		new OutsideAmbientLight();
 		
 		// Objects in the scene
+		setHole(new Hole2());
+	}
+	
+	public static void setHole(Hole hole) {
+		currentHole = hole;
+		Game.clear();
 		Game.addObject(player = new GolfPlayer());
-		Game.addObject(new Floor());
-		Game.addObject(new PhysicsObject(ObjModel.load("Resources/Models/hole1/Hole.obj"), true) {
-			{
-				this.getBody().setRestitution(0.6f);
-			}
-		});
+		Game.addObject(hole);
+		Game.addObject(new PhysicsObject(hole.getHoleModel(), true) {});
+	}
+	
+	public static Hole getHole() {
+		return currentHole;
 	}
 	
 	@Override

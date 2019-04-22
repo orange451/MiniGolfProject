@@ -32,7 +32,15 @@ public class PhysicsWorld {
 	public void step(float deltaTime) {
 		if ( dynamicsWorld == null ) 
 			return;
-		dynamicsWorld.stepSimulation(1/(float)Game.FRAMERATE, 4);
+		
+		int reps = 4;
+		double dt = 1/(double)(Game.FRAMERATE);
+		
+		for (int i = 0; i < reps; i++) {
+			float t = (float) (dt/(double)reps);
+			dynamicsWorld.stepSimulation(t, reps, t);
+		}
+		
 	}
 	
 	public ClosestRayResultCallback rayTest( Vector3f origin, Vector3f direction, PhysicsObject physObj ) {

@@ -2,6 +2,7 @@ package golf;
 
 import javax.vecmath.Vector3f;
 
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 
@@ -22,7 +23,7 @@ public class Golfball extends PhysicsObject {
 	public Golfball() {
 		super(ObjModel.load("Resources/Models/golfball.obj"), 0.5f, new btSphereShape(1.0f));
 		
-		setPosition(new Vector3f(0, 8, 0));
+		setPosition(GolfGame.getHole().getStartingPosition());
 		lastPosition = this.getPosition();
 		lastSafePosition = this.getPosition();
 		
@@ -51,7 +52,8 @@ public class Golfball extends PhysicsObject {
 		// Handle resetting
 		if ( this.getPosition().y < -2 ) {
 			this.setVelocity(new Vector3f());
-			this.setPosition(new Vector3f(0, 4, 0));
+			this.setPosition(GolfGame.getHole().getStartingPosition());
+			this.getBody().setAngularVelocity(new Vector3());
 			cup.play();
 		}
 		
@@ -75,6 +77,7 @@ public class Golfball extends PhysicsObject {
 			// Teleport!
 			if ( stuckTicks > Game.FRAMERATE*4 ) {
 				this.setPosition(lastSafePosition);
+				this.getBody().setAngularVelocity(new Vector3());
 				stuckTicks = 0;
 			}
 		}

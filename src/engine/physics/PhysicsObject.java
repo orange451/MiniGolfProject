@@ -60,8 +60,8 @@ public abstract class PhysicsObject extends DrawableObject implements PhysicsInt
 		
 		// Create rigidbody
 		body = new btRigidBody(bodyInfo);
-		body.setCcdMotionThreshold(1e1f);
-		body.setCcdSweptSphereRadius(1f);
+		body.setCcdMotionThreshold(1e2f);
+		body.setCcdSweptSphereRadius(0.2f);
 		body.setActivationState(1);
 		body.setHitFraction(0);
 		body.activate(true);
