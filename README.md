@@ -14,4 +14,4 @@ Shane Kruse
 
 [LibGDX+Bullet](https://libgdx.badlogicgames.com/old-site/releases/)
 
-![pic1](https://cdn.discordapp.com/attachments/460122895599796244/569677741994016784/Main.png)
+![pic1](http://magaimg.net/img/7t0o.png)
