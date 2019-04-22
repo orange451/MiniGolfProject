@@ -32,6 +32,6 @@ public class GolfGame extends Game {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.fillRect(32, 32, 64, 64);
+		g.drawString("Hello World!", 32, 32);
 	}
 }
