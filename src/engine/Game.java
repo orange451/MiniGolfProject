@@ -13,9 +13,9 @@ public abstract class Game {
 	
 	public static final long FRAMERATE = 60;
 	
-	protected static PhysicsWorld physicsWorld;
 	protected static GameUniverse universe;
 
+	protected PhysicsWorld physicsWorld;
 	protected ArrayList<GameObject> objects;
 
 	public static final Keyboard keyboard = new Keyboard();
@@ -32,7 +32,7 @@ public abstract class Game {
 	}
 	
 	public static PhysicsWorld getPhysicsWorld() {
-		return physicsWorld;
+		return game.physicsWorld;
 	}
 	
 	public static GameUniverse getUniverse() {
@@ -60,10 +60,19 @@ public abstract class Game {
 	public static void addObject(GameObject object) {
 		game.objects.add(object);
 	}
+	
+	public static void clear() {
+		game.objects.clear();
+		game.physicsWorld.clear();
+	}
 
 	public static GameObject[] getObjects() {
 		return game.objects.toArray(new GameObject[game.objects.size()]);
 	}
 
 	public abstract void paint(Graphics2D g);
+
+	public static boolean isActive() {
+		return javax.swing.FocusManager.getCurrentManager().getActiveWindow() != null;
+	}
 }

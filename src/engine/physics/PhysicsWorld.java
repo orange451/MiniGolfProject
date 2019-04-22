@@ -26,17 +26,7 @@ public class PhysicsWorld {
 	public PhysicsWorld() {
 		Bullet.init();
 		
-		// Setup physics world
-		btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
-		btCollisionDispatcher dispatcher = new btCollisionDispatcher(collisionConfiguration);
-		btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
-        btDefaultSoftBodySolver softbodySolver = new btDefaultSoftBodySolver();
-		Vector3 worldMin = new Vector3(-1000f,-1000f,-1000f);
-		Vector3 worldMax = new Vector3(1000f,1000f,1000f);
-		btAxisSweep3 sweepBP = new btAxisSweep3(worldMin, worldMax);
-		dynamicsWorld = new btSoftRigidDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration, softbodySolver);
-		
-		dynamicsWorld.setGravity(new Vector3(0, -60, 0));
+		clear();
 	}
 
 	public void step(float deltaTime) {
@@ -112,5 +102,24 @@ public class PhysicsWorld {
 		}
 
 		return ret;
+	}
+
+	public void clear() {
+		if ( dynamicsWorld != null ) {
+			dynamicsWorld.dispose();
+		}
+		
+		// Setup physics world
+		btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
+		btCollisionDispatcher dispatcher = new btCollisionDispatcher(collisionConfiguration);
+		btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
+        btDefaultSoftBodySolver softbodySolver = new btDefaultSoftBodySolver();
+		Vector3 worldMin = new Vector3(-1000f,-1000f,-1000f);
+		Vector3 worldMax = new Vector3(1000f,1000f,1000f);
+		btAxisSweep3 sweepBP = new btAxisSweep3(worldMin, worldMax);
+		dynamicsWorld = new btSoftRigidDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration, softbodySolver);
+		
+		// Set gravity
+		dynamicsWorld.setGravity(new Vector3(0, -80, 0));
 	}
 }

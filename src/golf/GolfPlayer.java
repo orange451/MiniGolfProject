@@ -53,9 +53,11 @@ public class GolfPlayer extends GameObject {
 				freezeCamera--;
 				if ( freezeCamera < 0 ) {
 					// Apply direction
-					float SENS = 512;
-					yaw += delta.x/SENS;
-					pitch += delta.y/SENS;
+					if ( Game.isActive() ) {
+						float SENS = 512;
+						yaw += delta.x/SENS;
+						pitch += delta.y/SENS;
+					}
 	
 					// Limit pitch
 					if ( pitch < Math.PI/2+0.15f )
@@ -71,8 +73,8 @@ public class GolfPlayer extends GameObject {
 				// We hit the ball!
 				if ( swingOffset < 0 ) {
 					float force = Math.abs(ds)*48;
-					if ( force > 100)
-						force = 100;
+					if ( force > 150)
+						force = 150;
 	
 					freezeCamera = 30;
 					swingOffset = 0;
@@ -82,8 +84,7 @@ public class GolfPlayer extends GameObject {
 			}
 			
 			// Reset mouse
-			boolean active = javax.swing.FocusManager.getCurrentManager().getActiveWindow() != null;
-			if ( active )
+			if ( Game.isActive() )
 				Game.mouse.setMouseLocation(Game.getUniverse().getCanvas().getWidth()/2, Game.getUniverse().getCanvas().getHeight()/2);
 		} else {
 			Game.mouse.setCursor(Mouse.NORMAL);
