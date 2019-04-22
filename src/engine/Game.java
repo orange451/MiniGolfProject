@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import engine.io.Keyboard;
@@ -52,4 +53,6 @@ public abstract class Game {
 	public static GameObject[] getObjects() {
 		return game.objects.toArray(new GameObject[game.objects.size()]);
 	}
+
+	public abstract void paint(Graphics2D g);
 }

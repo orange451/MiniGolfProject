@@ -1,5 +1,7 @@
 package golf;
 
+import java.awt.Graphics2D;
+
 import engine.Game;
 import engine.GameUniverse;
 import engine.obj.ObjModel;
@@ -25,8 +27,11 @@ public class GolfGame extends Game {
 	
 	@Override
 	public void step(float deltaTime) {
-		
-		// Update objects
 		super.step(deltaTime);
+	}
+
+	@Override
+	public void paint(Graphics2D g) {
+		g.fillRect(32, 32, 64, 64);
 	}
 }

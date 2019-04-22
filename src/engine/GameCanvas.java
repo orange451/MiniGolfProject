@@ -1,12 +1,14 @@
 package engine;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.Panel;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Group;
+
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import engine.io.KeyListener;
@@ -49,6 +51,14 @@ public class GameCanvas extends Panel implements GameUniverse {
 				// Continue normal rendering
 				super.preRender();
 			}
+			
+			@Override
+			public void postRender() {
+				super.postRender();
+				
+				callback.paint(this.getGraphics2D());
+				this.getGraphics2D().flush(true);
+			}
 		};
 		this.add(canvas, BorderLayout.CENTER);
 		
@@ -68,6 +78,12 @@ public class GameCanvas extends Panel implements GameUniverse {
 		
 		canvas.addKeyListener(new KeyListener());
 		canvas.addMouseListener(new MouseListener());
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		System.out.println("A");
 	}
 
 	@Override

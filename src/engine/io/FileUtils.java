@@ -1,6 +1,9 @@
 package engine.io;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class FileUtils {
 	/**
@@ -95,5 +98,36 @@ public class FileUtils {
 		
 		String f1 = getFileNameWithoutExtension(s1);
 		return s1.replace(f1, "");
+	}
+	
+	/**
+	 * Returns the URL for a specified path.<br>
+	 * Will first check inside the jar. If the file is not found, it will then check outside the jar.
+	 * @param path
+	 * @return
+	 */
+	public static URL getFileURL(String path) throws MalformedURLException {
+		URL url = FileUtils.class.getClassLoader().getResource(path);
+		if ( url == null ) {
+			url = new File(path).toURI().toURL();
+		}
+		
+		return url;
+	}
+
+	/**
+	 * Opens a file for reading as a specified path.<br>
+	 * Will first check inside the jar. If the file is not found, it will then check outside the jar.
+	 * @param path
+	 * @return BufferedReader
+	 */
+	public static BufferedReader open(String path) {
+		BufferedReader reader = FileIO.file_text_open_read(FileUtils.class.getClassLoader(), path);
+		if (reader == null) { // Then try to look for it outside the jar!
+			String str = new File(path).getAbsolutePath();
+			reader = FileIO.file_text_open_read(str);
+		}
+		
+		return reader;
 	}
 }

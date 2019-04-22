@@ -25,11 +25,7 @@ public class ObjModel {
 	public static BranchGroup load(String path) {
 		
 		// Open the file
-		BufferedReader reader = FileIO.file_text_open_read(ObjModel.class.getClassLoader(), path);
-		if (reader == null) { // Then try to look for it outside the jar!
-			String str = new File(path).getAbsolutePath();
-			reader = FileIO.file_text_open_read(str);
-		}
+		BufferedReader reader = FileUtils.open(path);
 
 		// File Not Found
 		if (reader == null)
@@ -170,11 +166,7 @@ public class ObjModel {
 	private static HashMap<String,ObjMaterial> parseOBJMaterial(String materialFile) {
 		HashMap<String,ObjMaterial> materials = new HashMap<String,ObjMaterial>();
 		if (materialFile != null && materialFile.length() > 0) {
-			BufferedReader reader = FileIO.file_text_open_read(ObjModel.class.getClassLoader(), materialFile);
-			if (reader == null) { // Then try to look for it outside the jar!
-				String str = new File(materialFile).getAbsolutePath();
-				reader = FileIO.file_text_open_read(str);
-			}
+			BufferedReader reader = FileUtils.open(materialFile);
 
 			ObjMaterial buildingMaterial = null;
 

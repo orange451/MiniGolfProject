@@ -9,6 +9,7 @@ import javax.vecmath.Vector3f;
 import engine.Game;
 import engine.GameObject;
 import engine.io.Mouse;
+import engine.sound.Sound;
 
 public class GolfPlayer extends GameObject {
 
@@ -21,6 +22,10 @@ public class GolfPlayer extends GameObject {
 
 	private boolean canSwing;
 	private float swingOffset;
+	
+	private boolean paused;
+	
+	private Sound hitSound;
 
 	public GolfPlayer() {
 		ball = new Golfball();
@@ -30,6 +35,8 @@ public class GolfPlayer extends GameObject {
 		Game.addObject(putter);
 
 		turnCamera = true;
+		
+		hitSound = new Sound("Resources/Sounds/hit.wav");
 	}
 
 	@Override
@@ -39,41 +46,42 @@ public class GolfPlayer extends GameObject {
 		Point delta = Game.mouse.getDelta();
 
 		// Turn Camera logic
-		if ( turnCamera ) {
-			freezeCamera--;
-			if ( freezeCamera < 0 ) {
-				// Apply direction
-				float SENS = 512;
-				yaw += delta.x/SENS;
-				pitch += delta.y/SENS;
-
-				// Limit pitch
-				if ( pitch < Math.PI/2+0.15f )
-					pitch = (float)Math.PI/2+0.15f;
-				if ( pitch > Math.PI-0.5f )
-					pitch = (float)Math.PI-0.5f;
-			}
-
-			// Reset mouse
-			boolean active = javax.swing.FocusManager.getCurrentManager().getActiveWindow() != null;
-			if ( active )
-				Game.mouse.setMouseLocation(100, 100);
-		} else {
-			// In putter swing mode...
-			float ds = delta.y/32f;
-			swingOffset += ds;
-
-			// We hit the ball!
-			if ( swingOffset < 0 ) {
-				float force = Math.abs(ds)*32;
-				if ( force > 250)
-					force = 250;
-
-				System.out.println(force);
-
-				freezeCamera = 30;
-				swingOffset = 0;
-				hit(force);
+		if ( !paused ) {
+			if ( turnCamera ) {
+				freezeCamera--;
+				if ( freezeCamera < 0 ) {
+					// Apply direction
+					float SENS = 512;
+					yaw += delta.x/SENS;
+					pitch += delta.y/SENS;
+	
+					// Limit pitch
+					if ( pitch < Math.PI/2+0.15f )
+						pitch = (float)Math.PI/2+0.15f;
+					if ( pitch > Math.PI-0.5f )
+						pitch = (float)Math.PI-0.5f;
+				}
+	
+				// Reset mouse
+				boolean active = javax.swing.FocusManager.getCurrentManager().getActiveWindow() != null;
+				if ( active )
+					Game.mouse.setMouseLocation(100, 100);
+			} else {
+				// In putter swing mode...
+				float ds = delta.y/32f;
+				swingOffset += ds;
+	
+				// We hit the ball!
+				if ( swingOffset < 0 ) {
+					float force = Math.abs(ds)*32;
+					if ( force > 250)
+						force = 250;
+	
+					freezeCamera = 30;
+					swingOffset = 0;
+					turnCamera = true;
+					hit(force);
+				}
 			}
 		}
 
@@ -85,7 +93,7 @@ public class GolfPlayer extends GameObject {
 		// Position the putter
 		{
 			int offsetY = canSwing?0:99999;
-			float pushBack = 0.75f+swingOffset;
+			float pushBack = 1.0f+swingOffset;
 			Vector3f ballPosition = getBall().getPosition();
 			Matrix4f worldMatrix = new Matrix4f();
 			worldMatrix.setIdentity();
@@ -103,6 +111,9 @@ public class GolfPlayer extends GameObject {
 		// Toggle camera turn. Prepare for ball hit
 		if ( Game.mouse.isMouseButtonPressed(Mouse.LEFT_MOUSE) && canSwing )
 			turnCamera = !turnCamera;
+		
+		if ( Game.keyboard.isKeyPressed("Escape") )
+			paused = !paused;
 
 		// Update the camera
 		float dist = 28;
@@ -147,5 +158,7 @@ public class GolfPlayer extends GameObject {
 
 		Vector3f c = ball.getVelocity();
 		ball.setVelocity(new Vector3f(c.x+xx, c.y, c.z+zz));
+		
+		hitSound.play();
 	}
 }
