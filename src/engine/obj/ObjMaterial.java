@@ -9,7 +9,6 @@ public class ObjMaterial {
 	private Color3f specular;
 	private float shininess;
 	public String name;
-	public String textureName;
 	public Texture texture;
 	
 	public ObjMaterial(String name) {
@@ -41,8 +40,8 @@ public class ObjMaterial {
 		return this;
 	}
 	
-	public ObjMaterial setTextureName(String name) {
-		this.textureName = name;
+	public ObjMaterial setTexture(Texture texture) {
+		this.texture = texture;
 		return ObjMaterial.this;
 	}
 	
@@ -65,5 +64,9 @@ public class ObjMaterial {
 	@Override
 	public String toString() {
 		return "ObjMaterial:"+name;
+	}
+
+	public Texture getTexture() {
+		return texture;
 	}
 }

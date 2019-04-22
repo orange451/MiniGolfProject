@@ -1,15 +1,20 @@
 package engine.obj;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Geometry;
 import javax.media.j3d.Material;
 import javax.media.j3d.Shape3D;
+import javax.media.j3d.Texture;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point2f;
@@ -17,6 +22,7 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
+import com.sun.j3d.utils.image.TextureLoader;
 
 import engine.io.FileIO;
 import engine.io.FileUtils;
@@ -135,12 +141,14 @@ public class ObjModel {
 		Color3f emissive = new Color3f(0.0f, 0.0f, 0.0f);
 		Color3f diffuse = currentMaterial.getDiffuse();
 		Color3f specular = currentMaterial.getSpecular();
+		Texture diffuseT = currentMaterial.getTexture();
 		float shininess = currentMaterial.getShininess();
 
 		// Create material
 		Appearance appearance = new Appearance();
 		Material material = new Material(ambient, emissive, diffuse, specular, shininess);
 		appearance.setMaterial(material);
+		appearance.setTexture(diffuseT);
 		
 		// Build model
 		Shape3D shape = new Shape3D(result, appearance);
@@ -197,7 +205,17 @@ public class ObjModel {
 							buildingMaterial.setSpecular(r, g, b);
 						} else if (line.trim().startsWith("map_Kd")) {
 							String temp = line.substring(line.indexOf("map_Kd") + 7);
-							buildingMaterial.setTextureName(temp);
+							BufferedImage image;
+							try {
+								String imagePath = FileUtils.getFileDirectoryFromPath(materialFile)+File.separator+temp;
+								image = ImageIO.read(FileUtils.getFileURL(imagePath));
+								Texture texture = new TextureLoader(image, TextureLoader.ALLOW_NON_POWER_OF_TWO).getTexture();
+								buildingMaterial.setTexture(texture);
+							} catch (MalformedURLException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}
