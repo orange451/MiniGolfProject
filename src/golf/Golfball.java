@@ -33,8 +33,8 @@ public class Golfball extends PhysicsObject {
 		onGround = callback.getCollisionObject() != null;
 		
 		// Increase damping the SLOWER we are (so it feels more linear when stopping)
-		float speed = (float) Math.max(0.0, this.getVelocity().length()/6f);
-		float invSpeed = Math.min(1, 1.0f/(float)Math.max(0.1, Math.min(speed,4)));
+		float speed = (float) Math.max(0.0, this.getVelocity().length()/3f);
+		float invSpeed = Math.min(1, 1.0f/(float)Math.max(0.1, Math.min(speed,2)));
 		this.getBody().setDamping(invSpeed*(onGround?0.9999f:0.1f), invSpeed*(onGround?0.4f:0.1f));
 		
 		if ( speed < 0.05 )
