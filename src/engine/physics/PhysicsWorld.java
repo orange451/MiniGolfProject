@@ -120,6 +120,6 @@ public class PhysicsWorld {
 		dynamicsWorld = new btSoftRigidDynamicsWorld(dispatcher, sweepBP, solver, collisionConfiguration, softbodySolver);
 		
 		// Set gravity
-		dynamicsWorld.setGravity(new Vector3(0, -80, 0));
+		dynamicsWorld.setGravity(new Vector3(0, -98.2f, 0));
 	}
 }

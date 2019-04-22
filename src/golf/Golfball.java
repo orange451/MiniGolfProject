@@ -55,6 +55,7 @@ public class Golfball extends PhysicsObject {
 			cup.play();
 		}
 		
+		// Compute stuck ticks
 		if ( isStill() ) {
 			stuckTicks = 0;
 		} else {
@@ -63,18 +64,19 @@ public class Golfball extends PhysicsObject {
 			
 			// Increment stuck ticks if we're not moving anymore...
 			float distance = t.length();
-			if ( distance < 0.5 ) {
+			if ( distance < 0.1 ) {
 				stuckTicks++;
 			}
 			
 			// Increment stuck ticks if there's something trapping us...
 			ClosestRayResultCallback callback2 = Game.getPhysicsWorld().rayTestExcluding(this.getPosition(), new Vector3f(0,1.01f,0), this);
-			stuckTicks += (callback2.getCollisionObject() != null)?1:0;
-		}
-		
-		if ( stuckTicks > Game.FRAMERATE*4 ) {
-			this.setPosition(lastSafePosition);
-			stuckTicks = 0;
+			stuckTicks += (callback2.getCollisionObject() != null)?10:0;
+			
+			// Teleport!
+			if ( stuckTicks > Game.FRAMERATE*4 ) {
+				this.setPosition(lastSafePosition);
+				stuckTicks = 0;
+			}
 		}
 		
 		lastPosition = this.getPosition();
