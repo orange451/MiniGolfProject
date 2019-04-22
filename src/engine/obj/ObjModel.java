@@ -99,9 +99,8 @@ public class ObjModel {
 		return model;
 	}
 
+	@SuppressWarnings("deprecation")
 	private static void writeOldVerticesToMesh(BranchGroup model, final ArrayList<Integer> indices, final ArrayList<Point3f> vertices, final ArrayList<Vector3f> normals, final ArrayList<Point2f> textures, final ObjMaterial currentMaterial) {
-		System.out.println("Transferred vertices into model");
-		
 		int stride = 9;
 		int tris = indices.size()/stride;
 		int verts = tris*3;

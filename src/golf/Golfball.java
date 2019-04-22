@@ -37,11 +37,13 @@ public class Golfball extends PhysicsObject {
 		float invSpeed = Math.min(1, 1.0f/(float)Math.max(0.1, Math.min(speed,2)));
 		this.getBody().setDamping(invSpeed*(onGround?0.9999f:0.1f), invSpeed*(onGround?0.4f:0.1f));
 		
+		// Compute if still or not
 		if ( speed < 0.05 )
 			stillTicks++;
 		else
 			stillTicks = 0;
 		
+		// Handle resetting
 		if ( this.getPosition().y < -2 ) {
 			this.setVelocity(new Vector3f());
 			this.setPosition(new Vector3f(0, 4, 0));
