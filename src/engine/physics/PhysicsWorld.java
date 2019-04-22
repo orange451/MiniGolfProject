@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.bullet.collision.btCollisionConfiguration;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionWorld;
 import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
-import com.badlogic.gdx.physics.bullet.collision.btGImpactCollisionAlgorithm;
 import com.badlogic.gdx.physics.bullet.dynamics.btConstraintSolver;
 import com.badlogic.gdx.physics.bullet.dynamics.btDiscreteDynamicsWorld;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
@@ -41,7 +40,7 @@ public class PhysicsWorld {
 	public void step(float deltaTime) {
 		if ( dynamicsWorld == null ) 
 			return;
-		dynamicsWorld.stepSimulation(deltaTime, 4);
+		dynamicsWorld.stepSimulation(1/60f, 4);
 	}
 	
 	public ClosestRayResultCallback rayTest( Vector3f origin, Vector3f direction, PhysicsObject physObj ) {
