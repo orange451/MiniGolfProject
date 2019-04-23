@@ -11,7 +11,7 @@ public abstract class Game {
 	private static Camera camera;
 	private static Game game;
 	
-	public static final long FRAMERATE = 60;
+	public static final long FRAMERATE = 120;
 	
 	protected static GameUniverse universe;
 

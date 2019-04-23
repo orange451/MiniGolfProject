@@ -20,7 +20,7 @@ public class GolfGame extends Game {
 		new OutsideAmbientLight();
 		
 		// Objects in the scene
-		setHole(new Hole1());
+		setHole(new Hole2());
 	}
 	
 	public static void setHole(Hole hole) {
