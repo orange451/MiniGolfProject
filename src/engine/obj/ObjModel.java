@@ -219,7 +219,7 @@ public class ObjModel {
 
 							buildingMaterial.setSpecular(r, g, b);
 						} else if (line.trim().startsWith("map_Kd")) {
-							String temp = line.substring(line.indexOf("map_Kd") + 7);
+							String temp = FileUtils.fixPath(line.substring(line.indexOf("map_Kd") + 7));
 							BufferedImage image;
 							try {
 								String imagePath = FileUtils.getFileDirectoryFromPath(materialFile)+File.separator+temp;
