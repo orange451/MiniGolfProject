@@ -45,6 +45,7 @@ public class ObjModel {
 		HashMap<String,ObjMaterial> materials = null;
 
 		ObjMaterial baseMaterial = new ObjMaterial("base");
+		baseMaterial.setDiffuse(0.8f, 0.8f, 0.8f);
 		ObjMaterial currentMaterial = baseMaterial;
 		
 		BranchGroup model = new BranchGroup();
