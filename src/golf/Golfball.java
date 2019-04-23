@@ -18,6 +18,7 @@ public class Golfball extends PhysicsObject {
 	private Vector3f lastPosition;
 	private Vector3f lastSafePosition;
 	private boolean onGround;
+	private boolean moving;
 	private Sound cup;
 	
 	public Golfball() {
@@ -49,18 +50,34 @@ public class Golfball extends PhysicsObject {
 		else
 			stillTicks = 0;
 		
-		// Handle resetting
-		if ( this.getPosition().y < -2 ) {
+		// Handle hole in logic
+		if ( this.getPosition().y < -1 ) {
+			ClosestRayResultCallback groundCallback = Game.getPhysicsWorld().rayTestExcluding(this.getPosition(), new Vector3f(0,-512f,0), this);
+			if ( groundCallback.getCollisionObject() != null ) {
+				this.setPosition(GolfGame.getHole().getStartingPosition());
+				this.setVelocity(new Vector3f());
+				this.getBody().setAngularVelocity(new Vector3());
+				cup.play();
+			}
+		}
+		
+		// Handle OB logic
+		if ( this.getPosition().y < -20 ) {
+			this.setPosition(lastSafePosition);
 			this.setVelocity(new Vector3f());
-			this.setPosition(GolfGame.getHole().getStartingPosition());
 			this.getBody().setAngularVelocity(new Vector3());
-			cup.play();
 		}
 		
 		// Compute stuck ticks
 		if ( isStill() ) {
 			stuckTicks = 0;
+			
+			if ( moving ) {
+				moving = false;
+				lastSafePosition = this.getPosition();
+			}
 		} else {
+			moving = true;
 			Vector3f t = this.getPosition();
 			t.sub(lastPosition);
 			
@@ -72,7 +89,10 @@ public class Golfball extends PhysicsObject {
 			
 			// Increment stuck ticks if there's something trapping us...
 			ClosestRayResultCallback callback2 = Game.getPhysicsWorld().rayTestExcluding(this.getPosition(), new Vector3f(0,1.01f,0), this);
-			stuckTicks += (callback2.getCollisionObject() != null)?10:0;
+			if ( callback2.getCollisionObject() != null ) {
+				stuckTicks += 10;
+				stillTicks = 0;
+			}
 			
 			// Teleport!
 			if ( stuckTicks > Game.FRAMERATE*4 ) {

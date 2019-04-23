@@ -38,7 +38,7 @@ public class PhysicsWorld {
 		
 		for (int i = 0; i < reps; i++) {
 			float t = (float) (dt/(double)reps);
-			dynamicsWorld.stepSimulation(t, reps, t);
+			dynamicsWorld.stepSimulation(t, 1, t);
 		}
 		
 	}
