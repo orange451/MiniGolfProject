@@ -60,7 +60,12 @@ public class Sound {
 		return free;
 	}
 	
-	public void play() {
+	/**
+	 * Plays the specified sound. If the sound is already playing, a new clip will be generated.<br>
+	 * The clip to be played is returned.
+	 * @return
+	 */
+	public Clip play() {
 		if ( soundUrl == null )
 			throw new RuntimeException("Sound not loaded.");
 		
@@ -70,5 +75,16 @@ public class Sound {
 		
 		free.setFramePosition(0);
 		free.start();
+		
+		return free;
+	}
+
+	/**
+	 * Stops all occurrences of this sound.
+	 */
+	public void stop() {
+		for (int i = 0; i < clips.size(); i++) {
+			clips.get(i).stop();
+		}
 	}
 }
