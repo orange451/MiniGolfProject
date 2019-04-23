@@ -51,7 +51,7 @@ public class Golfball extends PhysicsObject {
 			stillTicks = 0;
 		
 		// Handle hole in logic
-		if ( this.getPosition().y < -1 ) {
+		if ( this.getPosition().y < -2.5 ) {
 			ClosestRayResultCallback groundCallback = Game.getPhysicsWorld().rayTestExcluding(this.getPosition(), new Vector3f(0,-512f,0), this);
 			if ( groundCallback.getCollisionObject() != null ) {
 				this.setPosition(GolfGame.getHole().getStartingPosition());

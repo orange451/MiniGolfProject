@@ -167,5 +167,7 @@ public class GolfPlayer extends GameObject {
 		ball.setVelocity(new Vector3f(c.x+xx, c.y, c.z+zz));
 		
 		hitSound.play();
+		
+		GolfGame.strokes++;
 	}
 }

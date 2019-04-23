@@ -1,6 +1,7 @@
 package golf;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -65,7 +66,6 @@ public class Main {
 				GameCanvas c = new GameCanvas(new GolfGame());
 				c.setPreferredSize(new Dimension(640,480));
 
-				//frame.add(c);
 				frame.setContentPane(c);
 				frame.revalidate();
 				frame.repaint();
@@ -76,6 +76,7 @@ public class Main {
 
 // Welcome screen
 class WelcomeUI extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private Image image;
 	public WelcomeUI(JLabel title, JButton startBtn) {
 		try {

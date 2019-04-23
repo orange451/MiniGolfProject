@@ -12,6 +12,7 @@ import golf.hole.*;
 public class GolfGame extends Game {
 	public static GolfPlayer player;
 	private static Hole currentHole;
+	public static int strokes;
 	
 	@Override
 	public void initialize(GameUniverse universe) {
@@ -28,6 +29,7 @@ public class GolfGame extends Game {
 		Game.addObject(player = new GolfPlayer());
 		Game.addObject(hole);
 		Game.addObject(new PhysicsObject(hole.getHoleModel(), true) {});
+		strokes = 0;
 	}
 	
 	public static Hole getHole() {
@@ -41,7 +43,9 @@ public class GolfGame extends Game {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.drawString("Hello World!", 32, 32);
+		g.setColor(Color.WHITE);
+		g.drawString("Position: ("+player.getBall().getPosition()+")", 16, 16);
+		g.drawString("Strokes: " + strokes, 16, 32);
 		
 		if ( player.paused ) {
 			g.setColor(new Color(0.2f,0.2f,0.2f,0.5f));
