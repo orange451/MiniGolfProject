@@ -5,8 +5,6 @@ import java.awt.Graphics2D;
 
 import engine.Game;
 import engine.GameUniverse;
-import engine.physics.PhysicsObject;
-import golf.hole.Hole;
 import golf.hole.*;
 
 public class GolfGame extends Game {
@@ -25,11 +23,11 @@ public class GolfGame extends Game {
 	
 	public static void setHole(Hole hole) {
 		currentHole = hole;
+		strokes = 0;
+		
 		Game.clear();
 		Game.addObject(player = new GolfPlayer());
-		Game.addObject(hole);
-		Game.addObject(new PhysicsObject(hole.getHoleModel(), true) {});
-		strokes = 0;
+		hole.create();
 	}
 	
 	public static Hole getHole() {

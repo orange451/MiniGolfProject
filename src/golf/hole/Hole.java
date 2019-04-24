@@ -5,9 +5,11 @@ import java.io.File;
 import javax.media.j3d.BranchGroup;
 import javax.vecmath.Vector3f;
 
+import engine.Game;
 import engine.GameObject;
 import engine.io.FileIO;
 import engine.obj.ObjModel;
+import engine.physics.PhysicsObject;
 
 public abstract class Hole extends GameObject {
 	
@@ -22,6 +24,11 @@ public abstract class Hole extends GameObject {
 		startingPosition = new Vector3f(Float.parseFloat(startData[0]), Float.parseFloat(startData[1]), Float.parseFloat(startData[2]));
 		
 		this.holeModel = ObjModel.load(modelFile);
+	}
+	
+	public void create() {
+		Game.addObject(this);
+		Game.addObject(new PhysicsObject(getHoleModel(), true) {});
 	}
 	
 	@Override
