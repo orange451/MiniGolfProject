@@ -55,7 +55,7 @@ public abstract class PhysicsObject extends DrawableObject implements PhysicsInt
 		
 		// Create initial body info
 		btRigidBodyConstructionInfo bodyInfo = new btRigidBodyConstructionInfo(mass, bodyMotionState, shape, ballInertia);
-		bodyInfo.setRestitution(0.4f);
+		bodyInfo.setRestitution(0.6f);
 		bodyInfo.setFriction(0.4f);
 		
 		// Create rigidbody
