@@ -28,13 +28,14 @@ public class GolfGame extends Game {
 		currentHole = hole;
 		strokes = 0;
 		
+		Game.clear();
+
 		Game.getUniverse().getContentGroup().detach();
-		{
-			Game.clear();
-			Game.addObject(player = new GolfPlayer());
-			hole.create();
-		}
-		Game.getUniverse().getMainGroup().addChild(Game.getUniverse().getContentGroup());
+		Game.addObject(player = new GolfPlayer());
+		hole.create();
+		
+		if ( Game.getUniverse().getContentGroup().getParent() == null )
+			Game.getUniverse().getMainGroup().addChild(Game.getUniverse().getContentGroup());
 	}
 	
 	public static void nextHole() {
@@ -59,7 +60,8 @@ public class GolfGame extends Game {
 	public void paint(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.drawString("Position: ("+player.getBall().getPosition()+")", 16, 16);
-		g.drawString("Strokes: " + strokes, 16, 32);
+		g.drawString("Total Strokes: " + strokesTotal, 16, 32);
+		g.drawString("Strokes: " + strokes, 16, 48);
 		
 		if ( player.paused ) {
 			g.setColor(new Color(0.2f,0.2f,0.2f,0.5f));
