@@ -1,14 +1,5 @@
 # Material file for Hole.obj
 
-newmtl woodlong
-	Ns 0
-	d 1
-	illum 2
-	Kd 0.8 0.8 0.8
-	Ks 0.0 0.0 0.0
-	Ka 0.2 0.2 0.2
-	map_Kd ..\Textures\wood2.png
-
 newmtl grass
 	Ns 0
 	d 1
@@ -17,4 +8,12 @@ newmtl grass
 	Ks 0.0 0.0 0.0
 	Ka 0.2 0.2 0.2
 	map_Kd ..\Textures\grass1.png
+
+newmtl pipe
+	Ns 0
+	d 0.7
+	illum 4
+	Kd 0.68 0.66 1.0
+	Ks 0.0 0.0 0.0
+	Ka 0.2 0.2 0.2
 

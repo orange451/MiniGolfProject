@@ -35,3 +35,30 @@ newmtl dark
 	Ks 0.0 0.0 0.0
 	Ka 0.2 0.2 0.2
 
+newmtl Brick_2
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.8 0.8 0.8
+	Ks 0.0 0.0 0.0
+	Ka 0.1 0.1 0.1
+	map_Kd ..\hole1\Brick03.jpg
+
+newmtl Brick1
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.8 0.8 0.8
+	Ks 0.0 0.0 0.0
+	Ka 0.1 0.1 0.1
+	map_Kd ..\hole1\Brick02.jpg
+
+newmtl Brick3
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.8 0.8 0.8
+	Ks 0.0 0.0 0.0
+	Ka 0.1 0.1 0.1
+	map_Kd ..\hole1\Brick04.jpg
+
