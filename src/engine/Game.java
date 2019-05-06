@@ -50,10 +50,8 @@ public abstract class Game {
 		physicsWorld.step(deltaTime);
 		
 		// Update all the objects
-		synchronized(objects) {
-			for (int i = 0; i < objects.size(); i++) {
-				objects.get(i).update(deltaTime);
-			}
+		for (int i = 0; i < objects.size(); i++) {
+			objects.get(i).update(deltaTime);
 		}
 	}
 	
@@ -62,8 +60,11 @@ public abstract class Game {
 	}
 	
 	public static void clear() {
-		game.objects.clear();
-		game.physicsWorld.clear();
+		Game.getUniverse().getContentGroup().detach();
+			game.objects.clear();
+			game.physicsWorld.clear();
+			Game.getUniverse().getContentGroup().removeAllChildren();
+		Game.getUniverse().getMainGroup().addChild(Game.getUniverse().getContentGroup());
 	}
 
 	public static GameObject[] getObjects() {

@@ -18,6 +18,7 @@ public class GameCanvas extends Panel implements GameUniverse {
 	
 	protected SimpleUniverse universe;
 	protected BranchGroup mainGroup;
+	protected BranchGroup contentGroup;
 	protected Canvas3D canvas;
 
 	public GameCanvas(Game callback) {
@@ -70,6 +71,12 @@ public class GameCanvas extends Panel implements GameUniverse {
 		mainGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
 		mainGroup.setCapability(Group.ALLOW_CHILDREN_WRITE);
 		
+		contentGroup = new BranchGroup();
+		contentGroup.setCapability(BranchGroup.ALLOW_DETACH);
+		contentGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
+		contentGroup.setCapability(Group.ALLOW_CHILDREN_WRITE);
+		mainGroup.addChild(contentGroup);
+		
 		callback.initialize(this);
 		
 		// Finalize
@@ -88,6 +95,11 @@ public class GameCanvas extends Panel implements GameUniverse {
 	@Override
 	public BranchGroup getMainGroup() {
 		return mainGroup;
+	}
+
+	@Override
+	public BranchGroup getContentGroup() {
+		return contentGroup;
 	}
 
 	@Override

@@ -169,5 +169,6 @@ public class GolfPlayer extends GameObject {
 		hitSound.play();
 		
 		GolfGame.strokes++;
+		GolfGame.strokesTotal++;
 	}
 }

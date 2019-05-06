@@ -58,6 +58,7 @@ public class Golfball extends PhysicsObject {
 				this.setVelocity(new Vector3f());
 				this.getBody().setAngularVelocity(new Vector3());
 				cup.play();
+				GolfGame.nextHole();
 			}
 		}
 		

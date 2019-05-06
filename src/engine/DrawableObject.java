@@ -19,7 +19,7 @@ public abstract class DrawableObject extends GameObject {
 		localTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		localTransform.addChild(model);
 		
-		GolfGame.getUniverse().getMainGroup().addChild( localTransform );
+		GolfGame.getUniverse().getContentGroup().addChild( localTransform );
 	}
 
 	@Override

@@ -9,8 +9,10 @@ import golf.hole.*;
 
 public class GolfGame extends Game {
 	public static GolfPlayer player;
+	private static Course1 course;
 	private static Hole currentHole;
 	public static int strokes;
+	public static int strokesTotal;
 	
 	@Override
 	public void initialize(GameUniverse universe) {
@@ -18,16 +20,30 @@ public class GolfGame extends Game {
 		new OutsideAmbientLight();
 		
 		// Objects in the scene
-		setHole(new Hole5());
+		course = new Course1();
+		nextHole();
 	}
 	
 	public static void setHole(Hole hole) {
 		currentHole = hole;
 		strokes = 0;
 		
-		Game.clear();
-		Game.addObject(player = new GolfPlayer());
-		hole.create();
+		Game.getUniverse().getContentGroup().detach();
+		{
+			Game.clear();
+			Game.addObject(player = new GolfPlayer());
+			hole.create();
+		}
+		Game.getUniverse().getMainGroup().addChild(Game.getUniverse().getContentGroup());
+	}
+	
+	public static void nextHole() {
+		Hole hole = course.getNextHole();
+		if ( hole != null ) {
+			setHole(hole);
+		} else {
+			Game.clear();
+		}
 	}
 	
 	public static Hole getHole() {
