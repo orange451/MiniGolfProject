@@ -16,6 +16,7 @@ import javax.media.j3d.Material;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Texture;
 import javax.media.j3d.TextureAttributes;
+import javax.media.j3d.TransparencyAttributes;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point2f;
@@ -151,11 +152,21 @@ public class ObjModel {
 		Color3f specular = currentMaterial.getSpecular();
 		Texture diffuseT = currentMaterial.getTexture();
 		float shininess = currentMaterial.getShininess();
+		float transparency = currentMaterial.getTransparency();
 
 		// Create material
 		Appearance appearance = new Appearance();
 		Material material = new Material(ambient, emissive, diffuse, specular, shininess);
 		appearance.setMaterial(material);
+		
+		// Apply transparency
+		/*if ( transparency < 1 ) {
+			TransparencyAttributes t_attr = new TransparencyAttributes();
+			t_attr.setCapability(Appearance.ALLOW_TRANSPARENCY_ATTRIBUTES_WRITE);
+			t_attr.setCapability(TransparencyAttributes.ALLOW_VALUE_WRITE);
+			t_attr.setTransparencyMode(TransparencyAttributes.BLENDED);
+			appearance.setTransparencyAttributes(t_attr);
+		}*/
 		
 		// Texture
 		TextureAttributes tattr = new TextureAttributes();
@@ -218,6 +229,14 @@ public class ObjModel {
 							float b = (float) Double.parseDouble(temp[2]);
 
 							buildingMaterial.setSpecular(r, g, b);
+						} else if (line.trim().startsWith("d")) {
+							String temp = line.substring(line.indexOf("d") + 2);
+							try {
+								double trans = Double.parseDouble(temp);
+								buildingMaterial.setTransparency(trans);
+							} catch(Exception e) {
+								//
+							}
 						} else if (line.trim().startsWith("map_Kd")) {
 							String temp = FileUtils.fixPath(line.substring(line.indexOf("map_Kd") + 7));
 							BufferedImage image;

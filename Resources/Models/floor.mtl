@@ -4,7 +4,8 @@ newmtl mat
 	Ns 5
 	d 1
 	illum 2
-	Kd 0.14 0.5 0.14
+	Kd 1.0 1.0 1.0
 	Ks 0.2 0.2 0.2
 	Ka 0.2 0.2 0.2
+	map_Kd .\Textures\grass1.png
 

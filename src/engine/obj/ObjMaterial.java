@@ -8,6 +8,7 @@ public class ObjMaterial {
 	private Color3f ambient;
 	private Color3f specular;
 	private float shininess;
+	private float transparency;
 	public String name;
 	public Texture texture;
 	
@@ -68,5 +69,14 @@ public class ObjMaterial {
 
 	public Texture getTexture() {
 		return texture;
+	}
+
+	public ObjMaterial setTransparency(double trans) {
+		this.transparency = (float) trans;
+		return this;
+	}
+	
+	public float getTransparency() {
+		return this.transparency;
 	}
 }
