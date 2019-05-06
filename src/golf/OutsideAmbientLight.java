@@ -15,7 +15,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(4.0f, -6.0f, -12.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 		
 		// Create another light
@@ -25,7 +25,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(-2.0f, -9.0f, 4.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 		
 		// Create another light
@@ -35,7 +35,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(1.0f, 9.0f, -7.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 		
 		// Create another light
@@ -45,7 +45,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(-8.0f, -3.0f, 0.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 		
 		// Create another light
@@ -55,7 +55,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(2.0f, 3.0f, 8.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 		
 		// Create another light
@@ -65,7 +65,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(-6.0f, 3.0f, 8.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 		
 		// Create another light
@@ -75,7 +75,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(6.0f, -1.0f, 0.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 		
 		// Create another light
@@ -85,7 +85,7 @@ public class OutsideAmbientLight {
 			Vector3f light1Direction = new Vector3f(-6.0f, -1.0f, 0.0f);
 			DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
 			light1.setInfluencingBounds(bounds);
-			GolfGame.getUniverse().getMainGroup().addChild(light1);
+			GolfGame.getUniverse().getContentGroup().addChild(light1);
 		}
 	}
 }
