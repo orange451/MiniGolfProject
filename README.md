@@ -1,11 +1,11 @@
 Final project for CSCI 5437 (Computer Graphics) at Georgia Southern University.
 
 # Team members
-Andrew Hamilton
+Project Lead - Andrew Hamilton
 
-Joshua Ackerman
+Art - Joshua Ackerman
 
-Shane Kruse
+UI - Shane Kruse
 
 # Required Libraries
 [Java3D Core + Utils](http://jogamp.org/deployment/java3d/1.6.0-final/jogamp-java3d.7z)
@@ -14,4 +14,7 @@ Shane Kruse
 
 [LibGDX+Bullet](https://libgdx.badlogicgames.com/old-site/releases/)
 
-![pic1](http://magaimg.net/img/7t0o.png)
+![img1](https://magaimg.net/img/7x81.png)
+![img2](https://magaimg.net/img/7x82.png)
+![img3](https://magaimg.net/img/7x83.png)
+![img4](https://magaimg.net/img/7x84.png)
