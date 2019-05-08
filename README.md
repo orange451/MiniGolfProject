@@ -8,9 +8,9 @@ Art - Joshua Ackerman
 UI - Shane Kruse
 
 # Required Libraries
-[Java3D Core + Utils](http://jogamp.org/deployment/java3d/1.6.0-final/jogamp-java3d.7z)
+[Java3D Core + Utils (direct link)](http://jogamp.org/deployment/java3d/1.6.0-final/jogamp-java3d.7z)
 
-[JogAmp Fat](http://jogamp.org/deployment/jogamp-current/archive/jogamp-fat-all.7z)
+[JogAmp Fat (direct link)](http://jogamp.org/deployment/jogamp-current/archive/jogamp-fat-all.7z)
 
 [LibGDX+Bullet](https://libgdx.badlogicgames.com/old-site/releases/)
 
